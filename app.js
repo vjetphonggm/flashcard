@@ -217,7 +217,7 @@ document.addEventListener('mousedown', (event) => {
     }
 });
 
-// Assign keyboard arrow keys and space bar for navigation and flipping
+// Add event listener for keydown to handle shortcuts
 document.addEventListener('keydown', (event) => {
     const isInputFocused = document.activeElement === answerInput || document.activeElement === vocabInput;
 
@@ -225,15 +225,27 @@ document.addEventListener('keydown', (event) => {
         event.preventDefault();
         flipCard(); // Flip card on space bar press
     } else if (event.key === 'ArrowLeft' && currentCardIndex > 0 && !isInputFocused) {
+        event.preventDefault();
         currentCardIndex--; // Move to previous card on left arrow
         isFlipped = false;
         updateFlashcard();
     } else if (event.key === 'ArrowRight' && currentCardIndex < vocabCards.length - 1 && !isInputFocused) {
+        event.preventDefault();
         currentCardIndex++; // Move to next card on right arrow
         isFlipped = false;
         updateFlashcard();
+    } else if (event.key === 'r' && !isInputFocused) {
+        event.preventDefault();
+        reverseBtn.click(); // Trigger reverse button on 'R' key press
+    } else if (event.key === 'c' && !isInputFocused) {
+        event.preventDefault();
+        checkBtn.click(); // Trigger check button on 'C' key press
+    } else if (event.key === 's' && !isInputFocused) {
+        event.preventDefault();
+        shuffleBtn.click(); // Trigger shuffle button on 'S' key press
     }
 });
+
 
 // JavaScript to scroll to the top of the page when clicking on the logo
 document.getElementById('logo').addEventListener('click', function() {
