@@ -127,34 +127,42 @@ addVocabBtn.addEventListener('click', () => {
         const parts = line.split('\t');
         let word, type, phonetic, definition, example;
 
-        // Parse the input based on the number of parts
-        if (parts.length === 5) {
-            [word, type, phonetic, definition, example] = parts;
-        } else if (parts.length === 4) {
-            [word, type, phonetic, definition] = parts;
-        } else if (parts.length === 3) {
-            [word, phonetic, definition] = parts;
-        } else if (parts.length === 2) {
-            [word, definition] = parts;
+        // Check if the input format is valid before adding
+        if (parts.length >= 2) { // At least 2 parts are required (word and definition)
+            word = parts[0].trim();
+            definition = parts[1].trim();
+
+            // Assign other optional fields
+            if (parts.length >= 3) phonetic = parts[2].trim();
+            if (parts.length >= 4) type = parts[3].trim();
+            if (parts.length >= 5) example = parts[4].trim();
+
+            // Add the new card to the vocabCards array if word and definition are not empty
+            if (word && definition) {
+                vocabCards.push({
+                    word,
+                    type: type || '',
+                    phonetic: phonetic || '',
+                    definition: definition || '',
+                    example: example || ''
+                });
+
+                // Create a list item for the new card
+                const cardItem = document.createElement('li');
+                cardItem.textContent = `${word}`;
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'X';
+                deleteBtn.addEventListener('click', () => {
+                    const index = vocabCards.findIndex(card => card.word === word);
+                    vocabCards.splice(index, 1); // Remove the card from the array
+                    cardItem.remove(); // Remove the list item
+                    currentCardIndex = 0;
+                    updateFlashcard();
+                });
+                cardItem.appendChild(deleteBtn);
+                cardList.appendChild(cardItem); // Add the card to the list
+            }
         }
-
-        // Add the new card to the vocabCards array
-        vocabCards.push({ word, type: type || '', phonetic: phonetic || '', definition: definition || '', example: example || '' });
-
-        // Create a list item for the new card
-        const cardItem = document.createElement('li');
-        cardItem.textContent = `${word}`;
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'X';
-        deleteBtn.addEventListener('click', () => {
-            const index = vocabCards.findIndex(card => card.word === word);
-            vocabCards.splice(index, 1); // Remove the card from the array
-            cardItem.remove(); // Remove the list item
-            currentCardIndex = 0;
-            updateFlashcard();
-        });
-        cardItem.appendChild(deleteBtn);
-        cardList.appendChild(cardItem); // Add the card to the list
     });
     vocabInput.value = ''; // Clear the input field
     updateFlashcard(); // Update flashcard display
@@ -250,6 +258,6 @@ document.addEventListener('keydown', (event) => {
 });
 
 // JavaScript to scroll to the top of the page when clicking on the logo
-document.getElementById('logo').addEventListener('click', function() {
+document.getElementById('logo').addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
