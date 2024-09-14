@@ -243,9 +243,11 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key === 's' && !isInputFocused) {
         event.preventDefault();
         shuffleBtn.click(); // Trigger shuffle button on 'S' key press
+    } else if (event.key === 'a' && !isInputFocused) {
+        event.preventDefault();
+        addVocabBtn.click(); // Trigger add vocabulary button on 'A' key press
     }
 });
-
 
 // JavaScript to scroll to the top of the page when clicking on the logo
 document.getElementById('logo').addEventListener('click', function() {
