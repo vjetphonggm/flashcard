@@ -21,6 +21,12 @@ header {
     z-index: 1000;
 }
 
+/* Logo styling */
+#logo {
+    height: 25px;
+    cursor: pointer;
+}
+
 /* Set top margin for main content (accounting for the fixed header) and center it both horizontally and vertically */
 main {
     margin-top: 64px;

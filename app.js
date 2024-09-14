@@ -234,3 +234,8 @@ document.addEventListener('keydown', (event) => {
         updateFlashcard();
     }
 });
+
+// JavaScript to scroll to the top of the page when clicking on the logo
+document.getElementById('logo').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
