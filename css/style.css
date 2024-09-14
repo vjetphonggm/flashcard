@@ -1,0 +1,247 @@
+/* General Styles */
+/* Set general font, background color, and spacing for the entire body of the page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the header with a fixed height, center content both horizontally and vertically, and fix position on scroll */
+header {
+    background-color: #fff;
+    width: 100%;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Set top margin for main content (accounting for the fixed header) and center it both horizontally and vertically */
+main {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Flashcard Container */
+/* Center flashcard container with a margin from the top */
+#flashcard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+}
+
+/* Style individual flashcards with a fixed size, padding, shadow effect, and rounded corners */
+#flashcard {
+    width: 960px;
+    height: 455px;
+    padding: 24px 32px;
+    background-color: #fff;
+    box-shadow: 0 0 2rem 0 #282e3e1f;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Controls section for buttons (like Next, Previous) with some margin on top */
+#controls {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+/* Styling buttons inside controls with padding, hover effects, and disabled state */
+#controls button {
+    margin: 0 8px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+/* Disabled buttons are styled with a grey background and disabled cursor */
+#controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Enabled buttons change background color on hover */
+#controls button:hover:enabled {
+    background-color: #0056b3;
+}
+
+/* Active buttons have the primary background color */
+#controls button.active {
+    background-color: #007bff;
+}
+
+/* Input Section */
+/* Style the input section with a margin from the top and center its content */
+#input-section {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the vocabulary input field, setting dimensions, font size, and border */
+#vocab-input {
+    width: 960px;
+    height: 120px;
+    padding: 16px;
+    font-size: 18px;
+    line-height: 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+/* Style for the 'Add Vocabulary' button with padding and hover effect */
+#add-vocab {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+/* Change background color of 'Add Vocabulary' button on hover */
+#add-vocab:hover {
+    background-color: #218838;
+}
+
+/* Card List Section */
+/* Set width and margin for the card list section */
+#card-list-section {
+    width: 960px;
+    margin-top: 32px;
+}
+
+/* Style the title of the card list section */
+#card-list-section h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+/* Remove default list styling and padding for card list */
+#card-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style individual list items with padding, border, and background */
+#card-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+/* Style buttons inside the card list, with background color and padding */
+#card-list li button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Change button background color on hover */
+#card-list li button:hover {
+    background-color: #c82333;
+}
+
+/* Style buttons with specific IDs ('reverse', 'shuffle', 'check') with grey background */
+button#reverse,
+button#shuffle,
+button#check {
+    background-color: #ccc;
+}
+
+/* Flashcard Container Positioning */
+/* Set flashcard container to relative to allow for overlay positioning */
+#flashcard-container {
+    position: relative;
+}
+
+/* Ensure the flashcard itself is above other content within the container */
+#flashcard {
+    z-index: 1;
+}
+
+/* Answer Overlay */
+/* Position the answer overlay on top of the flashcard with absolute positioning */
+#answer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 455px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 2;
+    display: none;
+}
+
+/* Style the input field for the answer with padding and border */
+#answer-input {
+    padding: 16px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Style the result text with margin and gap between elements */
+#result {
+    margin-top: -300px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Progress Bar Styles */
+/* Style the progress bar container to be fixed at the top of the screen */
+#progress-container {
+    width: 100%;
+    height: 2px;
+    background-color: #f0f0f0;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    z-index: 999;
+}
+
+/* Style the progress bar itself with a red color and set initial width to 0% */
+#progress-bar {
+    height: 100%;
+    background-color: #FF6666;
+    width: 0%;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+
+    <!-- Link to CSS files for styling the page -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Favicon for the website -->
+    <link rel="icon" href="./img/favicon.png" type="image/png">
+    <!-- Apple touch icon for iOS devices -->
+    <link rel="apple-touch-icon" href="./img/apple-touch-iconv.jpg">
+</head>
+
+<body>
+
+    <!-- Header section containing the logo and progress bar -->
+    <header>
+        <!-- Logo displayed in the header -->
+        <img src="./img/logo.png" alt="Logo" style="height: 25px;">
+
+        <!-- Progress bar container and the bar itself -->
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </header>
+
+    <!-- Main content section for flashcards and input controls -->
+    <main>
+
+        <!-- Section for the flashcard container -->
+        <section id="flashcard-container">
+            <!-- Flashcard itself -->
+            <div id="flashcard" class="card">
+                No cards available
+            </div>
+
+            <!-- Answer overlay for user input -->
+            <div id="answer-overlay">
+                <input type="text" id="answer-input" placeholder="Enter your answer">
+                <div id="result"></div>
+            </div>
+
+            <!-- Controls for navigating through cards and other options -->
+            <div id="controls">
+                <button id="prev" disabled>Previous</button>
+                <span id="card-count">0/0</span> <!-- Displays card count -->
+                <button id="next" disabled>Next</button>
+                <button id="reverse">Reverse</button>
+                <button id="shuffle">Shuffle</button>
+                <button id="check">Check</button>
+            </div>
+        </section>
+
+        <!-- Section for adding new vocabulary input -->
+        <section id="input-section">
+            <textarea id="vocab-input"
+                placeholder="Word 1 Definition 1&#10;Word 2 Definition 2&#10;Word 3 Definition 3"></textarea>
+            <button id="add-vocab">Add Vocabulary</button>
+        </section>
+
+        <!-- Section to display a list of added cards -->
+        <section id="card-list-section">
+            <h2>Your Cards</h2>
+            <ul id="card-list"></ul>
+        </section>
+
+    </main>
+
+    <!-- Link to JavaScript file that controls functionality -->
+    <script src="./app.js"></script>
+</body>
+
+</html>
