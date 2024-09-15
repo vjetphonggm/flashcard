@@ -166,7 +166,11 @@ addVocabBtn.addEventListener('click', () => {
     });
     vocabInput.value = ''; // Clear the input field
     updateFlashcard(); // Update flashcard display
+
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
 
 // Show or hide the answer check overlay when the Check button is clicked
 checkBtn.addEventListener('click', () => {
@@ -237,9 +241,9 @@ document.addEventListener('keydown', (event) => {
         currentCardIndex--; // Move to previous card on left arrow
         isFlipped = false;
         updateFlashcard();
-    } else if (event.key === 'ArrowRight' && currentCardIndex < vocabCards.length - 1 && !isInputFocused) {
+    } else if ((event.key === 'ArrowRight' || event.key === 'Enter') && currentCardIndex < vocabCards.length - 1 && !isInputFocused) {
         event.preventDefault();
-        currentCardIndex++; // Move to next card on right arrow
+        currentCardIndex++; // Move to next card on right arrow or Enter key
         isFlipped = false;
         updateFlashcard();
     } else if (event.key === 'r' && !isInputFocused) {
@@ -256,6 +260,7 @@ document.addEventListener('keydown', (event) => {
         addVocabBtn.click(); // Trigger add vocabulary button on 'A' key press
     }
 });
+
 
 // JavaScript to scroll to the top of the page when clicking on the logo
 document.getElementById('logo').addEventListener('click', function () {
