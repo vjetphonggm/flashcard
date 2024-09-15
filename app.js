@@ -1,5 +1,6 @@
 // Get references to DOM elements
 const flashcard = document.getElementById('flashcard');
+const flashcardWrapper = document.querySelector('.flashcard-wrapper');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const shuffleBtn = document.getElementById('shuffle');
@@ -12,6 +13,10 @@ const checkBtn = document.getElementById('check');
 const answerOverlay = document.getElementById('answer-overlay');
 const answerInput = document.getElementById('answer-input');
 const resultDisplay = document.getElementById('result');
+const addVocabShowBtn = document.getElementById('add-vocab-show');
+const vocabInputSection = document.getElementById('vocab-input-section');
+const inputSection = document.getElementById('input-section');
+const closeVocabInputBtn = document.getElementById('close-vocab-input');
 
 // Variables to track the state of the flashcards and interactions
 let vocabCards = [];
@@ -37,9 +42,8 @@ function updateFlashcard() {
         flashcard.textContent = isFlipped
             ? (isReversed ? `${card.word}` : `${card.type ? card.type + ' ' : ''}${card.phonetic ? card.phonetic + ' ' : ''}${card.definition}${card.example ? ' ' + card.example : ''}`)
             : (isReversed ? `${card.type ? card.type + ' ' : ''}${card.phonetic ? card.phonetic + ' ' : ''}${card.definition}${card.example ? ' ' + card.example : ''}` : `${card.word}`);
-
         // Update card count (e.g., "1/10")
-        cardCount.textContent = `${currentCardIndex + 1}/${vocabCards.length}`;
+        cardCount.textContent = `${ currentCardIndex + 1 }/${vocabCards.length}`;
 
         // Disable the Previous button if it's the first card, disable Next if it's the last
         prevBtn.disabled = currentCardIndex === 0;
@@ -75,7 +79,14 @@ function updateControls() {
 }
 
 // Event listeners for the flashcard and buttons
-flashcard.addEventListener('click', flipCard);
+flashcard.addEventListener('click', (event) => {
+    flipCard();
+    event.stopPropagation();
+});
+
+flashcardWrapper.addEventListener('click', () => {
+    flipCard();
+});
 
 // Go to the previous card when the Previous button is clicked
 prevBtn.addEventListener('click', () => {
@@ -120,24 +131,21 @@ reverseBtn.addEventListener('click', () => {
     updateFlashcard();
 });
 
-// Add new vocabulary cards from the input field
+// Add new vocabulary and update card list
 addVocabBtn.addEventListener('click', () => {
     const vocabLines = vocabInput.value.trim().split('\n');
     vocabLines.forEach(line => {
         const parts = line.split('\t');
         let word, type, phonetic, definition, example;
 
-        // Check if the input format is valid before adding
-        if (parts.length >= 2) { // At least 2 parts are required (word and definition)
+        if (parts.length >= 2) {
             word = parts[0].trim();
             definition = parts[1].trim();
 
-            // Assign other optional fields
             if (parts.length >= 3) phonetic = parts[2].trim();
             if (parts.length >= 4) type = parts[3].trim();
             if (parts.length >= 5) example = parts[4].trim();
 
-            // Add the new card to the vocabCards array if word and definition are not empty
             if (word && definition) {
                 vocabCards.push({
                     word,
@@ -147,30 +155,27 @@ addVocabBtn.addEventListener('click', () => {
                     example: example || ''
                 });
 
-                // Create a list item for the new card
+                // Create list item for the card
                 const cardItem = document.createElement('li');
-                cardItem.textContent = `${word}`;
+                cardItem.textContent = word;
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'X';
                 deleteBtn.addEventListener('click', () => {
                     const index = vocabCards.findIndex(card => card.word === word);
-                    vocabCards.splice(index, 1); // Remove the card from the array
-                    cardItem.remove(); // Remove the list item
+                    vocabCards.splice(index, 1);
+                    cardItem.remove();
                     currentCardIndex = 0;
                     updateFlashcard();
                 });
                 cardItem.appendChild(deleteBtn);
-                cardList.appendChild(cardItem); // Add the card to the list
+                cardList.appendChild(cardItem);
             }
         }
     });
-    vocabInput.value = ''; // Clear the input field
+    vocabInput.value = ''; // Clear input field
+    vocabInputSection.style.display = 'none'; // Hide vocab input section
     updateFlashcard(); // Update flashcard display
-
-    // Scroll to the top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-
 
 // Show or hide the answer check overlay when the Check button is clicked
 checkBtn.addEventListener('click', () => {
@@ -201,9 +206,9 @@ answerInput.addEventListener('keypress', (event) => {
             // Display result
             resultDisplay.innerHTML = '';
             if (userAnswer === correctAnswer) {
-                resultDisplay.innerHTML = `<span class="correct">☑️</span> ${vocabCards[currentCardIndex].word}`;
+                resultDisplay.innerHTML = `<span class="correct">☑️</span> ${ vocabCards[currentCardIndex].word }`;
             } else {
-                resultDisplay.innerHTML = `<span class="wrong">❌</span> ${vocabCards[currentCardIndex].word}`;
+                resultDisplay.innerHTML = `<span class="wrong">❌</span> ${ vocabCards[currentCardIndex].word }`;
             }
             isShowingResult = true; // Set result display state
         } else {
@@ -257,12 +262,29 @@ document.addEventListener('keydown', (event) => {
         shuffleBtn.click(); // Trigger shuffle button on 'S' key press
     } else if (event.key === 'a' && !isInputFocused) {
         event.preventDefault();
-        addVocabBtn.click(); // Trigger add vocabulary button on 'A' key press
+        addVocabShowBtn.click(); // Trigger add vocabulary show button on 'A' key press
     }
 });
 
+// Show vocab input section when 'Add Vocabulary' button is clicked
+addVocabShowBtn.addEventListener('click', () => {
+    vocabInputSection.style.display = 'flex'; // Show vocab input section
+});
 
-// JavaScript to scroll to the top of the page when clicking on the logo
-document.getElementById('logo').addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+// Hide vocab input section when 'Add Vocabulary' button is clicked
+addVocabBtn.addEventListener('click', () => {
+    inputSection.classList.toggle('show'); // Toggle visibility of vocab input section
+    vocabInput.focus(); // Focus on the input field
+});
+
+// Close vocab input section when 'X' button is clicked
+closeVocabInputBtn.addEventListener('click', () => {
+    vocabInputSection.style.display = 'none';
+});
+
+// Close vocab input section when clicking outside the input section
+vocabInputSection.addEventListener('click', (event) => {
+    if (event.target === vocabInputSection) {
+        vocabInputSection.style.display = 'none';
+    }
 });

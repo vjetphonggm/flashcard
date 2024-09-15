@@ -2,7 +2,7 @@
 /* Set general font, background color, and spacing for the entire body of the page */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #fff;
     margin: 0;
     padding: 0;
 }
@@ -43,22 +43,33 @@ main {
     flex-direction: column;
     align-items: center;
     margin-top: 24px;
+    position: relative;
+    /* Set to relative for overlay positioning */
+}
+
+/* Styles for the wrapper of a flashcard */
+.flashcard-wrapper {
+    padding: 24px 32px;
+    background-color: #fff;
+    display: inline-block;
+    box-shadow: 0 0 2rem 0 #282e3e1f;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 
 /* Style individual flashcards with a fixed size, padding, shadow effect, and rounded corners */
 #flashcard {
     width: 960px;
-    height: 455px;
-    padding: 24px 32px;
+    height: 490px;
     background-color: #fff;
-    box-shadow: 0 0 2rem 0 #282e3e1f;
-    border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
+    z-index: 1;
+    /* Ensure the flashcard is above other content within the container */
 }
 
 /* Controls section for buttons (like Next, Previous) with some margin on top */
@@ -97,13 +108,97 @@ main {
     background-color: #007bff;
 }
 
-/* Input Section */
-/* Style the input section with a margin from the top and center its content */
-#input-section {
-    margin-top: 32px;
+/* Answer Overlay */
+/* Position the answer overlay on top of the flashcard with absolute positioning */
+#answer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 455px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 2;
+    /* Ensure it is above the flashcard */
+    display: none;
+    /* Hidden by default */
+}
+
+/* Style the input field for the answer with padding and border */
+#answer-input {
+    padding: 16px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Style the result text with margin and gap between elements */
+#result {
+    margin-top: -400px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Progress Bar Styles */
+/* Style the progress bar container to be fixed at the top of the screen */
+#progress-container {
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    z-index: 999;
+}
+
+/* Style the progress bar itself with a red color and set initial width to 0% */
+#progress-bar {
+    height: 100%;
+    background-color: #FF6666;
+    width: 0%;
+}
+
+/* Vocabulary Input Section */
+/* Initially hide the vocabulary input section */
+#vocab-input-section {
+    display: none;
+    position: fixed;
+    /* Ensure it is positioned relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Black semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    /* Ensure it is on top of other content */
+}
+
+/* Show the vocabulary input section */
+#vocab-input-section.show {
+    display: flex;
+}
+
+/* Wrapper for the content inside the vocabulary input section */
+#vocab-input-wrapper {
+    background-color: #fff;
+    padding: 32px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    /* For positioning the close button */
 }
 
 /* Style for the vocabulary input field, setting dimensions, font size, and border */
@@ -135,6 +230,39 @@ main {
     background-color: #218838;
 }
 
+/* Button to show the vocabulary input section */
+#add-vocab-show {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Change background color of 'Add Vocabulary' button on hover */
+#add-vocab-show:hover {
+    background-color: #0056b3;
+}
+
+/* Close button (X) styling */
+.close-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Change color of close button on hover */
+.close-btn:hover {
+    color: red;
+}
+
 /* Card List Section */
 /* Set width and margin for the card list section */
 #card-list-section {
@@ -144,8 +272,11 @@ main {
 
 /* Style the title of the card list section */
 #card-list-section h2 {
+    margin-top: 16px;
     margin-bottom: 16px;
     font-size: 20px;
+    text-align: center;
+    color: #ff6666;
 }
 
 /* Remove default list styling and padding for card list */
@@ -185,69 +316,4 @@ button#reverse,
 button#shuffle,
 button#check {
     background-color: #ccc;
-}
-
-/* Flashcard Container Positioning */
-/* Set flashcard container to relative to allow for overlay positioning */
-#flashcard-container {
-    position: relative;
-}
-
-/* Ensure the flashcard itself is above other content within the container */
-#flashcard {
-    z-index: 1;
-}
-
-/* Answer Overlay */
-/* Position the answer overlay on top of the flashcard with absolute positioning */
-#answer-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 960px;
-    height: 455px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: 2;
-    display: none;
-}
-
-/* Style the input field for the answer with padding and border */
-#answer-input {
-    padding: 16px;
-    font-size: 24px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 80%;
-    max-width: 600px;
-}
-
-/* Style the result text with margin and gap between elements */
-#result {
-    margin-top: -300px;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Progress Bar Styles */
-/* Style the progress bar container to be fixed at the top of the screen */
-#progress-container {
-    width: 100%;
-    height: 2px;
-    background-color: #f0f0f0;
-    position: fixed;
-    top: 64px;
-    left: 0;
-    z-index: 999;
-}
-
-/* Style the progress bar itself with a red color and set initial width to 0% */
-#progress-bar {
-    height: 100%;
-    background-color: #FF6666;
-    width: 0%;
 }

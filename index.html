@@ -14,7 +14,6 @@
     <link rel="icon" href="./img/favicon.png" type="image/png">
     <!-- Apple touch icon for iOS devices -->
     <link rel="apple-touch-icon" href="./img/apple-touch-iconv.jpg">
-
 </head>
 
 <body>
@@ -32,12 +31,13 @@
 
     <!-- Main content section for flashcards and input controls -->
     <main>
-
         <!-- Section for the flashcard container -->
         <section id="flashcard-container">
-            <!-- Flashcard itself -->
-            <div id="flashcard" class="card">
-                No cards available
+            <div class="flashcard-wrapper">
+                <!-- Flashcard itself -->
+                <div id="flashcard" class="card">
+                    No cards available
+                </div>
             </div>
 
             <!-- Answer overlay for user input -->
@@ -48,25 +48,39 @@
 
             <!-- Controls for navigating through cards and other options -->
             <div id="controls">
-                <button id="prev" disabled>Previous</button>
-                <span id="card-count">0/0</span> <!-- Displays card count -->
-                <button id="next" disabled>Next</button>
+                <!-- Button to reverse the order of cards -->
                 <button id="reverse">Reverse</button>
+                <!-- Button to shuffle the cards -->
                 <button id="shuffle">Shuffle</button>
+                <!-- Button to go to the previous card -->
+                <button id="prev" disabled>Previous</button>
+                <!-- Display the current card count -->
+                <span id="card-count">0/0</span>
+                <!-- Button to go to the next card -->
+                <button id="next" disabled>Next</button>
+                <!-- Button to check the answer -->
                 <button id="check">Check</button>
+                <!-- Button to show the Add Vocabulary section -->
+                <button id="add-vocab-show">Add Vocabulary</button>
             </div>
         </section>
 
         <!-- Section for adding new vocabulary input -->
-        <section id="input-section">
-            <textarea id="vocab-input"
-                placeholder="Word 1 Definition 1&#10;Word 2 Definition 2&#10;Word 3 Definition 3"></textarea>
-            <button id="add-vocab">Add Vocabulary</button>
+        <section id="vocab-input-section" style="display: none;">
+            <div id="vocab-input-wrapper">
+                <!-- Button to close the vocabulary input section -->
+                <button id="close-vocab-input" class="close-btn">X</button>
+                <!-- Textarea for entering new vocabulary and definitions -->
+                <textarea id="vocab-input"
+                    placeholder="Word 1 Definition 1&#10;Word 2 Definition 2&#10;Word 3 Definition 3"></textarea>
+                <!-- Button to add the new vocabulary -->
+                <button id="add-vocab">Add Vocabulary</button>
+            </div>
         </section>
 
         <!-- Section to display a list of added cards -->
         <section id="card-list-section">
-            <h2>Your Cards</h2>
+            <h2>Your Flashcard</h2>
             <ul id="card-list"></ul>
         </section>
 
@@ -74,7 +88,7 @@
 
     <!-- Link to JavaScript file that controls functionality -->
     <script src="./app.js"></script>
-    
+
 </body>
 
 </html>
