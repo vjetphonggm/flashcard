@@ -15,74 +15,74 @@
     <!-- Apple touch icon -->
     <link rel="apple-touch-icon" href="./img/apple-touch-iconv.jpg">
 
-    <!-- Font Awesome icons -->
+    <!-- Font Awesome icons for UI elements -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Header with logo and progress bar -->
+    <!-- Header containing logo and progress bar -->
     <header>
-        <!-- Logo -->
+        <!-- Logo image -->
         <img id="logo" src="./img/logo.png" alt="Logo">
 
-        <!-- Progress bar -->
+        <!-- Progress bar displaying flashcard progress -->
         <div id="progress-container">
             <div id="progress-bar"></div>
         </div>
     </header>
 
-    <!-- Main content -->
+    <!-- Main content area for flashcards and controls -->
     <main>
-        <!-- Flashcard section -->
+        <!-- Container for flashcards -->
         <section id="flashcard-container">
             <div class="flashcard-wrapper">
-                <!-- Flashcard -->
+                <!-- Flashcard display area -->
                 <div id="flashcard" class="card">
                     No cards available
                 </div>
             </div>
 
-            <!-- Answer input -->
+            <!-- Overlay for answering questions -->
             <div id="answer-overlay">
                 <input type="text" id="answer-input" placeholder="Enter your answer">
                 <div id="result"></div>
             </div>
 
-            <!-- Controls for flashcards -->
+            <!-- Controls for interacting with flashcards -->
             <div id="controls">
-                <!-- Reverse button -->
-                <button id="reverse"><i class="fas fa-sync-alt"></i></button>
-                <!-- Shuffle button -->
-                <button id="shuffle"><i class="fas fa-random"></i></button>
-                <!-- Previous card button -->
+                <!-- Button to reverse flashcards (disabled by default) -->
+                <button id="reverse" disabled><i class="fas fa-sync-alt"></i></button>
+                <!-- Button to shuffle flashcards (disabled by default) -->
+                <button id="shuffle" disabled><i class="fas fa-random"></i></button>
+                <!-- Button to go to previous flashcard (disabled by default) -->
                 <button id="prev" disabled><i class="fas fa-arrow-left"></i></button>
-                <!-- Card count display -->
+                <!-- Display of the current card count -->
                 <span id="card-count">0 / 0</span>
-                <!-- Next card button -->
+                <!-- Button to go to the next flashcard (disabled by default) -->
                 <button id="next" disabled><i class="fas fa-arrow-right"></i></button>
-                <!-- Check answer button -->
-                <button id="check"><i class="fas fa-check"></i></button>
-                <!-- Add vocabulary button -->
+                <!-- Button to check the answer (disabled by default) -->
+                <button id="check" disabled><i class="fas fa-check"></i></button>
+                <!-- Button to show vocabulary input section -->
                 <button id="add-vocab-show"><i class="fas fa-plus"></i></button>
             </div>
         </section>
 
-        <!-- Vocabulary input section -->
+        <!-- Section for inputting new vocabulary (hidden by default) -->
         <section id="vocab-input-section" style="display: none;">
             <div id="vocab-input-wrapper">
-                <!-- Close button -->
+                <!-- Button to close the vocabulary input section -->
                 <button id="close-vocab-input" class="close-btn">
                     <i class="fas fa-times"></i>
                 </button>
-                <!-- Text area for new vocabulary -->
+                <!-- Text area for entering new vocabulary -->
                 <textarea id="vocab-input" placeholder="Word 1 Definition 1&#10;Word 2 Definition 2&#10;Word 3 Definition 3"></textarea>
-                <!-- Add vocabulary button -->
+                <!-- Button to add new vocabulary -->
                 <button id="add-vocab">Add Vocabulary</button>
             </div>
         </section>
 
-        <!-- Flashcard list section -->
+        <!-- Section displaying a list of flashcards -->
         <section id="card-list-section">
             <h2>Your Flashcard</h2>
             <ul id="card-list"></ul>
@@ -90,7 +90,7 @@
 
     </main>
 
-    <!-- JavaScript file -->
+    <!-- Link to JavaScript file for functionality -->
     <script src="./app.js"></script>
 
 </body>

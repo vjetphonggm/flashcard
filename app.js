@@ -1,33 +1,33 @@
 // Get references to DOM elements
-const flashcard = document.getElementById('flashcard');
-const flashcardWrapper = document.querySelector('.flashcard-wrapper');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
-const shuffleBtn = document.getElementById('shuffle');
-const reverseBtn = document.getElementById('reverse');
-const cardCount = document.getElementById('card-count');
-const addVocabBtn = document.getElementById('add-vocab');
-const vocabInput = document.getElementById('vocab-input');
-const cardList = document.getElementById('card-list');
-const checkBtn = document.getElementById('check');
-const answerOverlay = document.getElementById('answer-overlay');
-const answerInput = document.getElementById('answer-input');
-const resultDisplay = document.getElementById('result');
-const addVocabShowBtn = document.getElementById('add-vocab-show');
-const vocabInputSection = document.getElementById('vocab-input-section');
-const inputSection = document.getElementById('input-section');
-const closeVocabInputBtn = document.getElementById('close-vocab-input');
-const cardListSection = document.getElementById('card-list-section');
+const flashcard = document.getElementById('flashcard'); // Flashcard element
+const flashcardWrapper = document.querySelector('.flashcard-wrapper'); // Wrapper for flashcard
+const prevBtn = document.getElementById('prev'); // Previous button
+const nextBtn = document.getElementById('next'); // Next button
+const shuffleBtn = document.getElementById('shuffle'); // Shuffle button
+const reverseBtn = document.getElementById('reverse'); // Reverse button
+const cardCount = document.getElementById('card-count'); // Display for card count (e.g., "1/10")
+const addVocabBtn = document.getElementById('add-vocab'); // Button to add new vocabulary
+const vocabInput = document.getElementById('vocab-input'); // Input field for new vocabulary
+const cardList = document.getElementById('card-list'); // List of vocabulary cards
+const checkBtn = document.getElementById('check'); // Check button for answers
+const answerOverlay = document.getElementById('answer-overlay'); // Overlay for answer checking
+const answerInput = document.getElementById('answer-input'); // Input field for answer
+const resultDisplay = document.getElementById('result'); // Display for result (correct/incorrect)
+const addVocabShowBtn = document.getElementById('add-vocab-show'); // Button to show vocabulary input section
+const vocabInputSection = document.getElementById('vocab-input-section'); // Section to input new vocabulary
+const inputSection = document.getElementById('input-section'); // Section containing the vocabulary input
+const closeVocabInputBtn = document.getElementById('close-vocab-input'); // Button to close the vocabulary input section
+const cardListSection = document.getElementById('card-list-section'); // Section showing the list of vocabulary cards
 
 // Variables to track the state of the flashcards and interactions
-let vocabCards = [];
-let currentCardIndex = 0;
-let isFlipped = false;
-let isReversed = false;
-let isShuffled = false;
-let isCheckMode = false;
-let isShowingResult = false;
-let originalOrder = [];
+let vocabCards = []; // Array to store vocabulary cards
+let currentCardIndex = 0; // Index of the current card being displayed
+let isFlipped = false; // Flag to track if the card is flipped
+let isReversed = false; // Flag to track if the card content is reversed (word/definition)
+let isShuffled = false; // Flag to track if the cards are shuffled
+let isCheckMode = false; // Flag to track if the check mode is active
+let isShowingResult = false; // Flag to track if the result is being shown
+let originalOrder = []; // Array to store the original order of cards for unshuffling
 
 // Function to update flashcard content based on the current index
 function updateFlashcard() {
@@ -81,12 +81,12 @@ function updateControls() {
 
 // Event listeners for the flashcard and buttons
 flashcard.addEventListener('click', (event) => {
-    flipCard();
-    event.stopPropagation();
+    flipCard(); // Flip card when flashcard is clicked
+    event.stopPropagation(); // Prevent event from bubbling up
 });
 
 flashcardWrapper.addEventListener('click', () => {
-    flipCard();
+    flipCard(); // Flip card when flashcard wrapper is clicked
 });
 
 // Go to the previous card when the Previous button is clicked
@@ -170,8 +170,8 @@ addVocabBtn.addEventListener('click', () => {
 
                 deleteBtn.addEventListener('click', () => {
                     const index = vocabCards.findIndex(card => card.word === word);
-                    vocabCards.splice(index, 1);
-                    cardItem.remove();
+                    vocabCards.splice(index, 1); // Remove card from array
+                    cardItem.remove(); // Remove list item
                     currentCardIndex = 0;
                     updateFlashcard();
 
@@ -235,7 +235,7 @@ checkBtn.addEventListener('click', () => {
 // Check the user's answer when Enter is pressed
 answerInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
-        event.preventDefault();
+        event.preventDefault(); // Prevent default Enter key action
         if (!isShowingResult) {
             const userAnswer = answerInput.value.trim().toLowerCase();
             const correctAnswer = vocabCards[currentCardIndex].word.toLowerCase(); // Get the correct word
@@ -263,22 +263,27 @@ answerInput.addEventListener('keypress', (event) => {
 
             isShowingResult = true; // Set result display state
         } else {
-            // Move to the next card if result is being shown
-            if (currentCardIndex < vocabCards.length - 1) {
-                currentCardIndex++;
-                isFlipped = false; // Reset flip state
-                updateFlashcard(); // Update to the next flashcard
-                resultDisplay.textContent = ''; // Clear result
-                answerInput.value = ''; // Clear input field
-                isShowingResult = false; // Reset result state
-            } else {
-                // If all cards have been checked, exit check mode
-                answerOverlay.style.display = 'none';
-                checkBtn.style.backgroundColor = ""; // Reset button color
+            // Handle second Enter press (move to next card or exit check mode)
+            if (currentCardIndex >= vocabCards.length - 1) {
+                // If at the last card, exit check mode and deactivate Reverse if active
+                answerOverlay.style.display = 'none'; // Hide overlay
+                checkBtn.style.backgroundColor = ""; // Reset check button color
                 isCheckMode = false;
+                isShowingResult = false; // Reset result display state
                 resultDisplay.textContent = ''; // Clear result
                 answerInput.value = ''; // Clear input field
-                isShowingResult = false; // Reset state
+
+                if (isReversed) {
+                    reverseBtn.click(); // Turn off reverse mode if active
+                }
+            } else {
+                // Move to the next card if not at the last card
+                currentCardIndex++;
+                isFlipped = false;
+                updateFlashcard();
+                resultDisplay.textContent = ''; 
+                answerInput.value = ''; 
+                isShowingResult = false; 
             }
         }
     }
@@ -286,7 +291,7 @@ answerInput.addEventListener('keypress', (event) => {
 
 // Close check mode when clicking outside of the flashcard area
 document.addEventListener('mousedown', (event) => {
-    if (isCheckMode && !flashcard.contains(event.target) && !checkBtn.contains(event.target) && !answerOverlay.contains(event.target)) {
+    if (isCheckMode && !flashcard.contains(event.target) && !flashcardWrapper.contains(event.target) && !checkBtn.contains(event.target) && !answerOverlay.contains(event.target)) {
         answerOverlay.style.display = 'none'; // Hide overlay
         checkBtn.style.backgroundColor = ""; // Reset button color
         isCheckMode = false;
@@ -356,24 +361,33 @@ vocabInputSection.addEventListener('click', (event) => {
 
 const logo = document.getElementById('logo');
 logo.addEventListener('click', () => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); // Scroll to top when logo is clicked
 });
 
 // Function to lock the flipping functionality
 function lockFlipping() {
-    flashcard.removeEventListener('click', flipCard);
-    flashcardWrapper.removeEventListener('click', flipCard);
+    flashcard.removeEventListener('click', flipCard); // Remove click event for flipping
+    flashcardWrapper.removeEventListener('click', flipCard); // Remove click event for flipping
 }
 
 // Function to unlock the flipping functionality
 function unlockFlipping() {
-    flashcard.addEventListener('click', flipCard);
-    flashcardWrapper.addEventListener('click', flipCard);
+    flashcard.addEventListener('click', flipCard); // Add click event for flipping
+    flashcardWrapper.addEventListener('click', flipCard); // Add click event for flipping
 }
 
 // Add event listener for keydown to handle closing vocab input with ESC
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && vocabInputSection.style.display === 'flex') {
-        vocabInputSection.style.display = 'none';
+        vocabInputSection.style.display = 'none'; // Hide vocab input section when ESC is pressed
+    }
+});
+
+// Activate check mode
+checkBtn.addEventListener('click', () => {
+    if (!isCheckMode) {
+        lockFlipping(); // Lock flipping for both flashcard and flashcard-wrapper
+    } else {
+        unlockFlipping(); // Unlock flipping when exiting check mode
     }
 });
