@@ -6,7 +6,10 @@ body {
     margin: 0;
     padding: 0;
 }
-body, div, p {
+
+body,
+div,
+p {
     font-family: Arial, sans-serif;
 }
 
@@ -95,7 +98,8 @@ main {
     border: none;
     background-color: #007bff;
     color: #fff;
-    border-radius: 50%; /* Rounded button shape */
+    border-radius: 50%;
+    /* Rounded button shape */
     width: 48px;
     height: 48px;
     display: flex;
@@ -251,6 +255,12 @@ main {
     border-radius: 4px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+/* Style for vocabulary instruction text */
+.vocab-instruction {
+    font-size: 18px;
+    margin-bottom: 19px;
 }
 
 /* Change background color of 'Add Vocabulary' button on hover */
