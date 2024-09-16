@@ -6,79 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards</title>
 
-    <!-- Link to CSS files for styling the page -->
+    <!-- Link to CSS files for styling -->
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/style.css">
 
-    <!-- Favicon for the website -->
+    <!-- Favicon -->
     <link rel="icon" href="./img/favicon.png" type="image/png">
-    <!-- Apple touch icon for iOS devices -->
+    <!-- Apple touch icon -->
     <link rel="apple-touch-icon" href="./img/apple-touch-iconv.jpg">
+
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Header section containing the logo and progress bar -->
+    <!-- Header with logo and progress bar -->
     <header>
-        <!-- Logo displayed in the header -->
+        <!-- Logo -->
         <img id="logo" src="./img/logo.png" alt="Logo">
 
-        <!-- Progress bar container and the bar itself -->
+        <!-- Progress bar -->
         <div id="progress-container">
             <div id="progress-bar"></div>
         </div>
     </header>
 
-    <!-- Main content section for flashcards and input controls -->
+    <!-- Main content -->
     <main>
-        <!-- Section for the flashcard container -->
+        <!-- Flashcard section -->
         <section id="flashcard-container">
             <div class="flashcard-wrapper">
-                <!-- Flashcard itself -->
+                <!-- Flashcard -->
                 <div id="flashcard" class="card">
                     No cards available
                 </div>
             </div>
 
-            <!-- Answer overlay for user input -->
+            <!-- Answer input -->
             <div id="answer-overlay">
                 <input type="text" id="answer-input" placeholder="Enter your answer">
                 <div id="result"></div>
             </div>
 
-            <!-- Controls for navigating through cards and other options -->
+            <!-- Controls for flashcards -->
             <div id="controls">
-                <!-- Button to reverse the order of cards -->
-                <button id="reverse">Reverse</button>
-                <!-- Button to shuffle the cards -->
-                <button id="shuffle">Shuffle</button>
-                <!-- Button to go to the previous card -->
-                <button id="prev" disabled>Previous</button>
-                <!-- Display the current card count -->
-                <span id="card-count">0/0</span>
-                <!-- Button to go to the next card -->
-                <button id="next" disabled>Next</button>
-                <!-- Button to check the answer -->
-                <button id="check">Check</button>
-                <!-- Button to show the Add Vocabulary section -->
-                <button id="add-vocab-show">Add Vocabulary</button>
+                <!-- Reverse button -->
+                <button id="reverse"><i class="fas fa-sync-alt"></i></button>
+                <!-- Shuffle button -->
+                <button id="shuffle"><i class="fas fa-random"></i></button>
+                <!-- Previous card button -->
+                <button id="prev" disabled><i class="fas fa-arrow-left"></i></button>
+                <!-- Card count display -->
+                <span id="card-count">0 / 0</span>
+                <!-- Next card button -->
+                <button id="next" disabled><i class="fas fa-arrow-right"></i></button>
+                <!-- Check answer button -->
+                <button id="check"><i class="fas fa-check"></i></button>
+                <!-- Add vocabulary button -->
+                <button id="add-vocab-show"><i class="fas fa-plus"></i></button>
             </div>
         </section>
 
-        <!-- Section for adding new vocabulary input -->
+        <!-- Vocabulary input section -->
         <section id="vocab-input-section" style="display: none;">
             <div id="vocab-input-wrapper">
-                <!-- Button to close the vocabulary input section -->
-                <button id="close-vocab-input" class="close-btn">X</button>
-                <!-- Textarea for entering new vocabulary and definitions -->
-                <textarea id="vocab-input"
-                    placeholder="Word 1 Definition 1&#10;Word 2 Definition 2&#10;Word 3 Definition 3"></textarea>
-                <!-- Button to add the new vocabulary -->
+                <!-- Close button -->
+                <button id="close-vocab-input" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+                <!-- Text area for new vocabulary -->
+                <textarea id="vocab-input" placeholder="Word 1 Definition 1&#10;Word 2 Definition 2&#10;Word 3 Definition 3"></textarea>
+                <!-- Add vocabulary button -->
                 <button id="add-vocab">Add Vocabulary</button>
             </div>
         </section>
 
-        <!-- Section to display a list of added cards -->
+        <!-- Flashcard list section -->
         <section id="card-list-section">
             <h2>Your Flashcard</h2>
             <ul id="card-list"></ul>
@@ -86,7 +90,7 @@
 
     </main>
 
-    <!-- Link to JavaScript file that controls functionality -->
+    <!-- JavaScript file -->
     <script src="./app.js"></script>
 
 </body>

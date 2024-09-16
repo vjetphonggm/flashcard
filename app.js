@@ -17,6 +17,7 @@ const addVocabShowBtn = document.getElementById('add-vocab-show');
 const vocabInputSection = document.getElementById('vocab-input-section');
 const inputSection = document.getElementById('input-section');
 const closeVocabInputBtn = document.getElementById('close-vocab-input');
+const cardListSection = document.getElementById('card-list-section');
 
 // Variables to track the state of the flashcards and interactions
 let vocabCards = [];
@@ -43,7 +44,7 @@ function updateFlashcard() {
             ? (isReversed ? `${card.word}` : `${card.type ? card.type + ' ' : ''}${card.phonetic ? card.phonetic + ' ' : ''}${card.definition}${card.example ? ' ' + card.example : ''}`)
             : (isReversed ? `${card.type ? card.type + ' ' : ''}${card.phonetic ? card.phonetic + ' ' : ''}${card.definition}${card.example ? ' ' + card.example : ''}` : `${card.word}`);
         // Update card count (e.g., "1/10")
-        cardCount.textContent = `${ currentCardIndex + 1 }/${vocabCards.length}`;
+        cardCount.textContent = `${currentCardIndex + 1} / ${vocabCards.length}`;
 
         // Disable the Previous button if it's the first card, disable Next if it's the last
         prevBtn.disabled = currentCardIndex === 0;
@@ -131,9 +132,14 @@ reverseBtn.addEventListener('click', () => {
     updateFlashcard();
 });
 
+// Hide the card-list-section initially
+cardListSection.style.display = 'none';
+
 // Add new vocabulary and update card list
 addVocabBtn.addEventListener('click', () => {
     const vocabLines = vocabInput.value.trim().split('\n');
+    let hasNewVocab = false;
+
     vocabLines.forEach(line => {
         const parts = line.split('\t');
         let word, type, phonetic, definition, example;
@@ -158,23 +164,38 @@ addVocabBtn.addEventListener('click', () => {
                 // Create list item for the card
                 const cardItem = document.createElement('li');
                 cardItem.textContent = word;
+
                 const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'X';
+                deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+
                 deleteBtn.addEventListener('click', () => {
                     const index = vocabCards.findIndex(card => card.word === word);
                     vocabCards.splice(index, 1);
                     cardItem.remove();
                     currentCardIndex = 0;
                     updateFlashcard();
+
+                    // Hide card-list-section if no vocabulary left
+                    if (vocabCards.length === 0) {
+                        cardListSection.style.display = 'none';
+                    }
                 });
                 cardItem.appendChild(deleteBtn);
                 cardList.appendChild(cardItem);
+                hasNewVocab = true;
             }
         }
     });
+
+    if (hasNewVocab) {
+        cardListSection.style.display = 'block'; // Show card-list-section if new vocab added
+    }
+
     vocabInput.value = ''; // Clear input field
     vocabInputSection.style.display = 'none'; // Hide vocab input section
     updateFlashcard(); // Update flashcard display
+
+    window.scrollTo(0, 0); // Scroll to top after adding vocabulary
 });
 
 // Show or hide the answer check overlay when the Check button is clicked
@@ -185,6 +206,14 @@ checkBtn.addEventListener('click', () => {
         isCheckMode = true;
         isShowingResult = false; // Reset result display state
         answerInput.focus();
+
+        // Enable Reverse when Check mode is activated
+        if (!isReversed) {
+            reverseBtn.click(); // Simulate click to activate Reverse
+        }
+
+        // Lock flipping functionality when Check mode is activated
+        lockFlipping();
     } else {
         answerOverlay.style.display = 'none'; // Hide overlay
         checkBtn.style.backgroundColor = ""; // Reset button color
@@ -192,6 +221,14 @@ checkBtn.addEventListener('click', () => {
         isShowingResult = false; // Reset result display state
         resultDisplay.textContent = ''; // Clear result
         answerInput.value = ''; // Clear input field
+
+        // Disable Reverse when Check mode is deactivated
+        if (isReversed) {
+            reverseBtn.click(); // Simulate click to deactivate Reverse
+        }
+
+        // Unlock flipping functionality when Check mode is deactivated
+        unlockFlipping();
     }
 });
 
@@ -205,19 +242,44 @@ answerInput.addEventListener('keypress', (event) => {
 
             // Display result
             resultDisplay.innerHTML = '';
+
             if (userAnswer === correctAnswer) {
-                resultDisplay.innerHTML = `<span class="correct">☑️</span> ${ vocabCards[currentCardIndex].word }`;
+                resultDisplay.innerHTML = `<span class="result correct"><i class="fas fa-check-circle" style="color: #00ba00;"></i> ${vocabCards[currentCardIndex].word}</span>`;
+                const correctResult = document.querySelector('.correct');
+                correctResult.style.fontSize = '33px';
+                correctResult.style.display = 'inline-block';
+                correctResult.style.marginTop = '10px';
+                correctResult.style.marginBottom = '-100px';
+                correctResult.style.textAlign = 'center';
             } else {
-                resultDisplay.innerHTML = `<span class="wrong">❌</span> ${ vocabCards[currentCardIndex].word }`;
+                resultDisplay.innerHTML = `<span class="result wrong"><i class="fas fa-times-circle" style="color: #ff5a54;"></i> ${vocabCards[currentCardIndex].word}</span>`;
+                const wrongResult = document.querySelector('.wrong');
+                wrongResult.style.fontSize = '33px';
+                wrongResult.style.display = 'inline-block';
+                wrongResult.style.marginTop = '10px';
+                wrongResult.style.marginBottom = '-100px';
+                wrongResult.style.textAlign = 'center';
             }
+
             isShowingResult = true; // Set result display state
         } else {
-            answerOverlay.style.display = 'none'; // Hide overlay
-            checkBtn.style.backgroundColor = ""; // Reset button color
-            isCheckMode = false;
-            isShowingResult = false; // Reset state
-            resultDisplay.textContent = ''; // Clear result
-            answerInput.value = ''; // Clear input field
+            // Move to the next card if result is being shown
+            if (currentCardIndex < vocabCards.length - 1) {
+                currentCardIndex++;
+                isFlipped = false; // Reset flip state
+                updateFlashcard(); // Update to the next flashcard
+                resultDisplay.textContent = ''; // Clear result
+                answerInput.value = ''; // Clear input field
+                isShowingResult = false; // Reset result state
+            } else {
+                // If all cards have been checked, exit check mode
+                answerOverlay.style.display = 'none';
+                checkBtn.style.backgroundColor = ""; // Reset button color
+                isCheckMode = false;
+                resultDisplay.textContent = ''; // Clear result
+                answerInput.value = ''; // Clear input field
+                isShowingResult = false; // Reset state
+            }
         }
     }
 });
@@ -263,6 +325,9 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key === 'a' && !isInputFocused) {
         event.preventDefault();
         addVocabShowBtn.click(); // Trigger add vocabulary show button on 'A' key press
+    } else if (event.key === 'Escape' && isCheckMode) {
+        // Exit Check mode with ESC key
+        checkBtn.click(); // Simulate click to deactivate Check
     }
 });
 
@@ -271,7 +336,7 @@ addVocabShowBtn.addEventListener('click', () => {
     vocabInputSection.style.display = 'flex'; // Show vocab input section
 });
 
-// Hide vocab input section when 'Add Vocabulary' button is clicked
+// Toggle visibility of vocab input section when 'Add Vocabulary' button is clicked
 addVocabBtn.addEventListener('click', () => {
     inputSection.classList.toggle('show'); // Toggle visibility of vocab input section
     vocabInput.focus(); // Focus on the input field
@@ -285,6 +350,30 @@ closeVocabInputBtn.addEventListener('click', () => {
 // Close vocab input section when clicking outside the input section
 vocabInputSection.addEventListener('click', (event) => {
     if (event.target === vocabInputSection) {
+        vocabInputSection.style.display = 'none';
+    }
+});
+
+const logo = document.getElementById('logo');
+logo.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+});
+
+// Function to lock the flipping functionality
+function lockFlipping() {
+    flashcard.removeEventListener('click', flipCard);
+    flashcardWrapper.removeEventListener('click', flipCard);
+}
+
+// Function to unlock the flipping functionality
+function unlockFlipping() {
+    flashcard.addEventListener('click', flipCard);
+    flashcardWrapper.addEventListener('click', flipCard);
+}
+
+// Add event listener for keydown to handle closing vocab input with ESC
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && vocabInputSection.style.display === 'flex') {
         vocabInputSection.style.display = 'none';
     }
 });
