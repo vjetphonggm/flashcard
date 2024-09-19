@@ -244,21 +244,9 @@ answerInput.addEventListener('keypress', (event) => {
             resultDisplay.innerHTML = '';
 
             if (userAnswer === correctAnswer) {
-                resultDisplay.innerHTML = `<span class="result correct"><i class="fas fa-check-circle" style="color: #00ba00;"></i> ${vocabCards[currentCardIndex].word}</span>`;
-                const correctResult = document.querySelector('.correct');
-                correctResult.style.fontSize = '33px';
-                correctResult.style.display = 'inline-block';
-                correctResult.style.marginTop = '10px';
-                correctResult.style.marginBottom = '-100px';
-                correctResult.style.textAlign = 'center';
+                resultDisplay.innerHTML = `<span class="result correct"><i class="fas fa-check-circle"></i> ${vocabCards[currentCardIndex].word}</span>`;
             } else {
-                resultDisplay.innerHTML = `<span class="result wrong"><i class="fas fa-times-circle" style="color: #ff5a54;"></i> ${vocabCards[currentCardIndex].word}</span>`;
-                const wrongResult = document.querySelector('.wrong');
-                wrongResult.style.fontSize = '33px';
-                wrongResult.style.display = 'inline-block';
-                wrongResult.style.marginTop = '10px';
-                wrongResult.style.marginBottom = '-100px';
-                wrongResult.style.textAlign = 'center';
+                resultDisplay.innerHTML = `<span class="result wrong"><i class="fas fa-times-circle"></i> ${vocabCards[currentCardIndex].word}</span>`;
             }
 
             isShowingResult = true; // Set result display state
@@ -281,9 +269,9 @@ answerInput.addEventListener('keypress', (event) => {
                 currentCardIndex++;
                 isFlipped = false;
                 updateFlashcard();
-                resultDisplay.textContent = ''; 
-                answerInput.value = ''; 
-                isShowingResult = false; 
+                resultDisplay.textContent = '';
+                answerInput.value = '';
+                isShowingResult = false;
             }
         }
     }

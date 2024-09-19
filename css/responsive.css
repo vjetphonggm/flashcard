@@ -1,0 +1,31 @@
+/* Mobile */
+@media (max-width: 739px) {
+    #flashcard {
+        width: 280px;
+        height: 630px;
+    }
+    #vocab-input {
+        width: 278px;
+        height: 480px;
+        font-size: 20px;
+        margin-top: 1px;
+    }
+    #card-list-section {
+        width: 100%;
+    }
+    #answer-overlay {
+        width: 100%;
+    }
+    #vocab-input-wrapper {
+        width: 344px;
+        height: 678px;
+    }
+    #vocab-input-wrapper {
+        background-color: #fff;
+        padding: 50px 26px;
+    }
+    #controls button{
+        width:auto ;
+        height: auto;
+    }
+}
