@@ -379,3 +379,48 @@ checkBtn.addEventListener('click', () => {
         unlockFlipping(); // Unlock flipping when exiting check mode
     }
 });
+
+// Wait for the DOM to fully load
+document.addEventListener("DOMContentLoaded", function () {
+    // Check if the window width is 739px or less (likely mobile)
+    if (window.innerWidth <= 739) {
+        const controls = document.getElementById('controls');
+
+        // Create a div for the first row of controls
+        const row1 = document.createElement('div');
+        row1.classList.add('control-row-1');
+
+        // Create a div for the second row of controls
+        const row2 = document.createElement('div');
+        row2.classList.add('control-row-2');
+
+        // Move the appropriate buttons to the first row
+        const prev = document.getElementById('prev');
+        const cardCount = document.getElementById('card-count');
+        const next = document.getElementById('next');
+
+        // Append buttons (prev, card-count, next) to the first row
+        row1.appendChild(prev);
+        row1.appendChild(cardCount);
+        row1.appendChild(next);
+
+        // Move the appropriate buttons to the second row
+        const reverse = document.getElementById('reverse');
+        const shuffle = document.getElementById('shuffle');
+        const check = document.getElementById('check');
+        const addVocabShow = document.getElementById('add-vocab-show');
+
+        // Append buttons (reverse, shuffle, check, add-vocab-show) to the second row
+        row2.appendChild(reverse);
+        row2.appendChild(shuffle);
+        row2.appendChild(check);
+        row2.appendChild(addVocabShow);
+
+        // Clear the #controls container and add the two new rows
+        controls.innerHTML = '';
+
+        // Append row1 and row2 into the controls container
+        controls.appendChild(row1);
+        controls.appendChild(row2);
+    }
+});

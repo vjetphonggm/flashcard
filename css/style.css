@@ -7,6 +7,7 @@ body {
     padding: 0;
 }
 
+/* Ensure consistency in font across body, div, and paragraph elements */
 body,
 div,
 p {
@@ -36,29 +37,30 @@ main {
     justify-content: center;
 }
 
-/* Logo styling */
+/* Set the height of the logo to 25px and make it clickable */
 #logo {
     height: 25px;
     cursor: pointer;
 }
 
+/* Style for the card count text: bold with font size 18px */
 #card-count {
     font-weight: bold;
     font-size: 18px;
 }
 
 /* Flashcard Container */
-/* Center flashcard container with a margin from the top */
+/* Center the flashcard container and set a top margin of 16px */
 #flashcard-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 16px;
     position: relative;
-    /* Set to relative for overlay positioning */
+    /* Set the position to relative to allow positioning of overlays */
 }
 
-/* Styles for the wrapper of a flashcard */
+/* Wrapper for each flashcard with padding, background, shadow, and rounded corners */
 .flashcard-wrapper {
     padding: 24px 32px;
     background-color: #fff;
@@ -68,7 +70,7 @@ main {
     cursor: pointer;
 }
 
-/* Style individual flashcards with a fixed size, padding, shadow effect, and rounded corners */
+/* Style the individual flashcard with a fixed size, center content, and ensure it is on top */
 #flashcard {
     width: 960px;
     height: 490px;
@@ -80,7 +82,7 @@ main {
     cursor: pointer;
     text-align: center;
     z-index: 1;
-    /* Ensure the flashcard is above other content within the container */
+    /* Ensure the flashcard stays above other elements in the container */
 }
 
 /* Controls section for buttons (like Next, Previous) with some margin on top */
@@ -90,6 +92,7 @@ main {
     margin-top: 16px;
 }
 
+/* Style for the buttons in the controls: margin, padding, font-size, and make them circular */
 #controls button {
     margin: 0 8px;
     padding: 12px;
@@ -119,7 +122,7 @@ main {
     background-color: #0056b3;
 }
 
-/* Style icons inside the buttons */
+/* Style icons inside the buttons with font-size of 20px */
 #controls button i {
     font-size: 20px;
 }
@@ -141,7 +144,7 @@ main {
     /* Hidden by default */
 }
 
-/* Style the input field for the answer with padding and border */
+/* Style the input field for the answer with padding, font size, and border */
 #answer-input {
     padding: 16px;
     font-size: 33px;
@@ -153,7 +156,7 @@ main {
     position: absolute;
 }
 
-/* Style the result text with margin and gap between elements */
+/* Uncommented result styling with margin, font size, and gap between elements */
 /* #result {
     margin-top: -400px;
     font-size: 24px;
@@ -182,7 +185,7 @@ main {
 }
 
 /* Vocabulary Input Section */
-/* Initially hide the vocabulary input section */
+/* Initially hide the vocabulary input section with black semi-transparent background */
 #vocab-input-section {
     position: fixed;
     top: 0;
@@ -198,7 +201,7 @@ main {
     /* Ensure it is on top of other content */
 }
 
-/* Show the vocabulary input section */
+/* Show the vocabulary input section when the 'show' class is added */
 #vocab-input-section.show {
     display: flex;
 }
@@ -216,7 +219,7 @@ main {
     /* For positioning the close button */
 }
 
-/* Style for the vocabulary input field, setting dimensions, font size, and border */
+/* Style for the vocabulary input field: set dimensions, font size, line height, and margin */
 #vocab-input {
     width: 960px;
     height: 230px;
@@ -226,7 +229,7 @@ main {
     margin-bottom: 16px;
 }
 
-/* Style for the 'Add Vocabulary' button with padding and hover effect */
+/* Style for the 'Add Vocabulary' button with padding, bold text, and a hover effect */
 #add-vocab {
     padding: 25px 30px;
     font-size: 18px;
@@ -246,7 +249,7 @@ main {
     background-color: #0056b3;
 }
 
-/* Button to show the vocabulary input section */
+/* Button to show the vocabulary input section with padding, border, and hover effect */
 #add-vocab-show {
     background-color: #007bff;
     color: white;
@@ -257,7 +260,7 @@ main {
     margin-left: 10px;
 }
 
-/* Style for vocabulary instruction text */
+/* Style for vocabulary instruction text with specific font size and margin */
 .vocab-instruction {
     font-size: 18px;
     margin-bottom: 19px;
@@ -268,7 +271,7 @@ main {
     background-color: #0056b3;
 }
 
-/* Close button (X) styling */
+/* Close button (X) styling: position, size, and color */
 .close-btn {
     background-color: transparent;
     border: none;
@@ -280,13 +283,13 @@ main {
     cursor: pointer;
 }
 
-/* Change color of close button on hover */
+/* Change color of close button to red on hover */
 .close-btn:hover {
     color: red;
 }
 
 /* Card List Section */
-/* Set width and margin for the card list section */
+/* Set width, margin, and background for the card list section */
 #card-list-section {
     width: 1024px;
     background-color: #f6f7fb;
@@ -295,7 +298,7 @@ main {
     margin-bottom: 26px;
 }
 
-/* Style the title of the card list section */
+/* Style the title of the card list section with font size and centered text */
 #card-list-section h2 {
     margin-top: 16px;
     margin-bottom: 16px;
@@ -304,13 +307,13 @@ main {
     color: #ff6666;
 }
 
-/* Remove default list styling and padding for card list */
+/* Remove default list styling and padding for the card list */
 #card-list {
     list-style: none;
     padding: 0;
 }
 
-/* Style individual list items with padding, border, and background */
+/* Style individual list items with padding, border, shadow, and background */
 #card-list li {
     display: flex;
     justify-content: space-between;
@@ -323,7 +326,7 @@ main {
     border-radius: 8px;
 }
 
-/* Style buttons inside the card list, with background color and padding */
+/* Style buttons inside the card list with font size, background color, and padding */
 #card-list li button {
     font-size: 22px;
     background-color: #fff;
@@ -332,7 +335,7 @@ main {
     cursor: pointer;
 }
 
-/* Change button background color on hover */
+/* Change button color on hover to red */
 #card-list li button:hover {
     color: red;
 }
@@ -344,6 +347,7 @@ button#check {
     background-color: #ccc;
 }
 
+/* Style for the result text with font size and centered alignment */
 .result {
     font-size: 33px;
     display: inline-block;
@@ -351,10 +355,12 @@ button#check {
     margin-bottom: 455px;
 }
 
+/* Style for correct result with green color */
 .correct {
     color: #00ba00;
 }
 
+/* Style for wrong result with red color */
 .wrong {
     color: #ff5a54;
 }
