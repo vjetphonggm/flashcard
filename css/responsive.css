@@ -7,12 +7,9 @@
         height: 440px;
     }
 
-    /* Vocab input field width, height, and font size for mobile */
-    #vocab-input {
-        width: 278px;
-        height: 480px;
-        font-size: 20px;
-        margin-top: 1px;
+    /* Full width for card list section on mobile */
+    #card-list-section {
+        width: 100%;
     }
 
     /* Full width for card list section on mobile */
@@ -20,19 +17,51 @@
         width: 100%;
     }
 
-    /* Full width and fixed height for the answer overlay on mobile */
-    #answer-overlay {
-        width: 100%;
-        height: 448px;
+    /* Set close button color in card list */
+    #card-list li button {
+        color: var(--close-btn-color);
+    }
+
+    /* Keep same color for close button on hover */
+    #card-list li button:hover {
+        color: var(--close-btn-color);
+    }
+
+    /* Adjust font size and layout for card-count on mobile */
+    #card-count {
+        display: flex;
+        font-size: 26px;
+        margin: 8px;
+        align-items: center;
+    }
+
+    /* Vocab input field width, height, and font size for mobile */
+    #vocab-input {
+        width: 278px;
+        height: 480px;
+        font-size: 20px;
+        margin-top: 1px;
+        outline: none;
     }
 
     /* Wrapper for vocab input with padding and background for mobile */
     #vocab-input-wrapper {
-        margin-bottom: 20px;
+        margin-bottom: 4px;
         width: 342px;
-        height: 666px;
+        height: 680px;
         background-color: #fff;
         padding: 50px 26px;
+    }
+
+    /* Set max-width for answer input field */
+    #answer-input {
+        max-width: 320px;
+    }
+
+    /* Full width and fixed height for the answer overlay on mobile */
+    #answer-overlay {
+        width: 100%;
+        height: 448px;
     }
 
     /* Center controls with flexbox on mobile */
@@ -43,9 +72,16 @@
         justify-content: center;
     }
 
+    /* Button styling in controls section for mobile */
+    #controls button {
+        margin: 8px;
+        width: 68px;
+        height: 68px;
+    }
+
     /* Result section margin for mobile layout */
     .result {
-        margin-bottom: 334px;
+        margin-bottom: 260px;
     }
 
     /* First row: prev, card-count, next buttons */
@@ -63,18 +99,20 @@
         width: 100%;
     }
 
-    /* Button styling in controls section for mobile */
-    #controls button {
-        margin: 8px;
-        width: 64px;
-        height: 64px;
+    /* Set close button color */
+    .close-btn {
+        color: var(--close-btn-color);
     }
 
-    /* Adjust font size and layout for card-count on mobile */
-    #card-count {
-        display: flex;
-        font-size: 26px;
-        margin: 8px;
-        align-items: center;
+    /* Keep same color for close button on hover */
+    .close-btn:hover {
+        color: var(--close-btn-color);
+    }
+
+    /* Change background color of these buttons on hover when enabled */
+    button#reverse:hover:enabled,
+    button#shuffle:hover:enabled,
+    button#check:hover:enabled {
+        background-color: var(--btn-disabled-color);
     }
 }

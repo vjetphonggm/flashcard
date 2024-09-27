@@ -145,7 +145,7 @@ addVocabBtn.addEventListener('click', () => {
         const parts = line.split('\t');
         let word, type, phonetic, definition, example;
 
-        // Parse the input based on the number of parts
+        // Check if the data is valid before adding
         if (parts.length === 5) {
             [word, type, phonetic, definition, example] = parts;
         } else if (parts.length === 4) {
@@ -156,9 +156,13 @@ addVocabBtn.addEventListener('click', () => {
             [word, definition] = parts;
         }
 
+        // Validate: skip if word or definition is empty
+        if (!word || !definition) {
+            return; // Skip if word or definition is missing
+        }
+
         // Add the new card to the vocabCards array
         vocabCards.push({ word, type: type || '', phonetic: phonetic || '', definition: definition || '', example: example || '' });
-
 
         // Create list item for the card
         const cardItem = document.createElement('li');
