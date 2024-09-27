@@ -4,7 +4,7 @@
     /* Flashcard container width and height for mobile */
     #flashcard {
         width: 278px;
-        height: 400px;
+        height: 440px;
     }
 
     /* Vocab input field width, height, and font size for mobile */
@@ -28,9 +28,9 @@
 
     /* Wrapper for vocab input with padding and background for mobile */
     #vocab-input-wrapper {
-        margin-bottom: 60px;
-        width: 336px;
-        height: 618px;
+        margin-bottom: 20px;
+        width: 342px;
+        height: 666px;
         background-color: #fff;
         padding: 50px 26px;
     }

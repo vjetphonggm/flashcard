@@ -1,33 +1,33 @@
 // Get references to DOM elements
-const flashcard = document.getElementById('flashcard'); // Flashcard element
-const flashcardWrapper = document.querySelector('.flashcard-wrapper'); // Wrapper for flashcard
-const prevBtn = document.getElementById('prev'); // Previous button
-const nextBtn = document.getElementById('next'); // Next button
-const shuffleBtn = document.getElementById('shuffle'); // Shuffle button
-const reverseBtn = document.getElementById('reverse'); // Reverse button
-const cardCount = document.getElementById('card-count'); // Display for card count (e.g., "1/10")
-const addVocabBtn = document.getElementById('add-vocab'); // Button to add new vocabulary
-const vocabInput = document.getElementById('vocab-input'); // Input field for new vocabulary
-const cardList = document.getElementById('card-list'); // List of vocabulary cards
-const checkBtn = document.getElementById('check'); // Check button for answers
-const answerOverlay = document.getElementById('answer-overlay'); // Overlay for answer checking
-const answerInput = document.getElementById('answer-input'); // Input field for answer
-const resultDisplay = document.getElementById('result'); // Display for result (correct/incorrect)
-const addVocabShowBtn = document.getElementById('add-vocab-show'); // Button to show vocabulary input section
-const vocabInputSection = document.getElementById('vocab-input-section'); // Section to input new vocabulary
-const inputSection = document.getElementById('input-section'); // Section containing the vocabulary input
-const closeVocabInputBtn = document.getElementById('close-vocab-input'); // Button to close the vocabulary input section
-const cardListSection = document.getElementById('card-list-section'); // Section showing the list of vocabulary cards
+const flashcard = document.getElementById('flashcard')
+const flashcardWrapper = document.querySelector('.flashcard-wrapper')
+const prevBtn = document.getElementById('prev')
+const nextBtn = document.getElementById('next')
+const shuffleBtn = document.getElementById('shuffle')
+const reverseBtn = document.getElementById('reverse')
+const cardCount = document.getElementById('card-count')
+const addVocabBtn = document.getElementById('add-vocab')
+const vocabInput = document.getElementById('vocab-input')
+const cardList = document.getElementById('card-list')
+const checkBtn = document.getElementById('check')
+const answerOverlay = document.getElementById('answer-overlay')
+const answerInput = document.getElementById('answer-input')
+const resultDisplay = document.getElementById('result')
+const addVocabShowBtn = document.getElementById('add-vocab-show')
+const vocabInputSection = document.getElementById('vocab-input-section')
+const inputSection = document.getElementById('input-section')
+const closeVocabInputBtn = document.getElementById('close-vocab-input')
+const cardListSection = document.getElementById('card-list-section')
 
 // Variables to track the state of the flashcards and interactions
-let vocabCards = []; // Array to store vocabulary cards
-let currentCardIndex = 0; // Index of the current card being displayed
-let isFlipped = false; // Flag to track if the card is flipped
-let isReversed = false; // Flag to track if the card content is reversed (word/definition)
-let isShuffled = false; // Flag to track if the cards are shuffled
-let isCheckMode = false; // Flag to track if the check mode is active
-let isShowingResult = false; // Flag to track if the result is being shown
-let originalOrder = []; // Array to store the original order of cards for unshuffling
+let vocabCards = []
+let currentCardIndex = 0
+let isFlipped = false
+let isReversed = false
+let isShuffled = false
+let isCheckMode = false
+let isShowingResult = false
+let originalOrder = []
 
 // Function to update flashcard content based on the current index
 function updateFlashcard() {
@@ -43,6 +43,7 @@ function updateFlashcard() {
         flashcard.textContent = isFlipped
             ? (isReversed ? `${card.word}` : `${card.type ? card.type + ' ' : ''}${card.phonetic ? card.phonetic + ' ' : ''}${card.definition}${card.example ? ' ' + card.example : ''}`)
             : (isReversed ? `${card.type ? card.type + ' ' : ''}${card.phonetic ? card.phonetic + ' ' : ''}${card.definition}${card.example ? ' ' + card.example : ''}` : `${card.word}`);
+
         // Update card count (e.g., "1/10")
         cardCount.textContent = `${currentCardIndex + 1} / ${vocabCards.length}`;
 
@@ -112,7 +113,7 @@ shuffleBtn.addEventListener('click', () => {
     if (!isShuffled) {
         originalOrder = [...vocabCards]; // Store original order
         vocabCards = vocabCards.sort(() => Math.random() - 0.5); // Shuffle
-        shuffleBtn.style.backgroundColor = "#007bff"; // Set color to active state
+        shuffleBtn.style.backgroundColor = "var(--btn-color)"; // Set color to active state
     } else {
         vocabCards = originalOrder; // Restore original order
         shuffleBtn.style.backgroundColor = ""; // Reset to default color
@@ -126,7 +127,7 @@ shuffleBtn.addEventListener('click', () => {
 // Reverse the flashcard content (word/definition) when the Reverse button is clicked
 reverseBtn.addEventListener('click', () => {
     isReversed = !isReversed;
-    reverseBtn.style.backgroundColor = isReversed ? "#007bff" : ""; // Set color to active state
+    reverseBtn.style.backgroundColor = isReversed ? "var(--btn-color)" : ""; // Set color to active state
     currentCardIndex = 0;
     isFlipped = false;
     updateFlashcard();
@@ -144,47 +145,43 @@ addVocabBtn.addEventListener('click', () => {
         const parts = line.split('\t');
         let word, type, phonetic, definition, example;
 
-        if (parts.length >= 2) {
-            word = parts[0].trim();
-            definition = parts[1].trim();
-
-            if (parts.length >= 3) phonetic = parts[2].trim();
-            if (parts.length >= 4) type = parts[3].trim();
-            if (parts.length >= 5) example = parts[4].trim();
-
-            if (word && definition) {
-                vocabCards.push({
-                    word,
-                    type: type || '',
-                    phonetic: phonetic || '',
-                    definition: definition || '',
-                    example: example || ''
-                });
-
-                // Create list item for the card
-                const cardItem = document.createElement('li');
-                cardItem.textContent = word;
-
-                const deleteBtn = document.createElement('button');
-                deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
-
-                deleteBtn.addEventListener('click', () => {
-                    const index = vocabCards.findIndex(card => card.word === word);
-                    vocabCards.splice(index, 1); // Remove card from array
-                    cardItem.remove(); // Remove list item
-                    currentCardIndex = 0;
-                    updateFlashcard();
-
-                    // Hide card-list-section if no vocabulary left
-                    if (vocabCards.length === 0) {
-                        cardListSection.style.display = 'none';
-                    }
-                });
-                cardItem.appendChild(deleteBtn);
-                cardList.appendChild(cardItem);
-                hasNewVocab = true;
-            }
+        // Parse the input based on the number of parts
+        if (parts.length === 5) {
+            [word, type, phonetic, definition, example] = parts;
+        } else if (parts.length === 4) {
+            [word, type, phonetic, definition] = parts;
+        } else if (parts.length === 3) {
+            [word, phonetic, definition] = parts;
+        } else if (parts.length === 2) {
+            [word, definition] = parts;
         }
+
+        // Add the new card to the vocabCards array
+        vocabCards.push({ word, type: type || '', phonetic: phonetic || '', definition: definition || '', example: example || '' });
+
+
+        // Create list item for the card
+        const cardItem = document.createElement('li');
+        cardItem.textContent = word;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
+
+        deleteBtn.addEventListener('click', () => {
+            const index = vocabCards.findIndex(card => card.word === word);
+            vocabCards.splice(index, 1); // Remove card from array
+            cardItem.remove(); // Remove list item
+            currentCardIndex = 0;
+            updateFlashcard();
+
+            // Hide card-list-section if no vocabulary left
+            if (vocabCards.length === 0) {
+                cardListSection.style.display = 'none';
+            }
+        });
+        cardItem.appendChild(deleteBtn);
+        cardList.appendChild(cardItem);
+        hasNewVocab = true;
     });
 
     if (hasNewVocab) {
@@ -202,7 +199,7 @@ addVocabBtn.addEventListener('click', () => {
 checkBtn.addEventListener('click', () => {
     if (!isCheckMode) {
         answerOverlay.style.display = 'flex'; // Show overlay
-        checkBtn.style.backgroundColor = "#007bff"; // Set active button color
+        checkBtn.style.backgroundColor = "var(--btn-color)"; // Set active button color
         isCheckMode = true;
         isShowingResult = false; // Reset result display state
         answerInput.focus();

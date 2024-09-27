@@ -16,3 +16,16 @@ body {
 body {
     line-height: 1.6;
 }
+
+/* CSS Custom Properties (Variables) for theming and colors */
+:root {
+    --primary-color: #f05123;
+    --black-color: #000;
+    --white-color: #fff;
+    --btn-color: #FF8F26;
+    --btn-disabled-color: #ccc;
+    --btn-hover-color: #FF7620;
+    --close-btn-color: #EB1000;
+    --transparent-color: rgba(255, 255, 255, 0);
+    --gradient-background: linear-gradient(90deg, #852EFA, #7853FA, #6A79FA, #5D9CFA);
+}

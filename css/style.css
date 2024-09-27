@@ -1,8 +1,8 @@
 /* General Styles */
 /* Set general font, background color, and spacing for the entire body of the page */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--white-color);
     margin: 0;
     padding: 0;
 }
@@ -11,12 +11,12 @@ body {
 body,
 div,
 p {
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
 /* Style the header with a fixed height, center content both horizontally and vertically, and fix position on scroll */
 header {
-    background-color: #fff;
+    background-color: var(--white-color);
     width: 100%;
     height: 64px;
     display: flex;
@@ -35,6 +35,39 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+/* Color definitions for the palette from light to dark */
+/* Colors: #FF8F26, #FF7620, #FF5918, #FF4C14 */
+
+/* Font definitions using @font-face for various styles of Segoe UI */
+/* Regular font face */
+@font-face {
+    font-family: 'Segoe UI Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('./font/Segoe UI.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Segoe UI Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Italic'), url('./font/Segoe UI Italic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Segoe UI Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Bold'), url('./font/Segoe UI Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Segoe UI Bold Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Bold Italic'), url('./font/Segoe UI Bold Italic.woff') format('woff');
 }
 
 /* Set the height of the logo to 25px and make it clickable */
@@ -63,9 +96,8 @@ main {
 /* Wrapper for each flashcard with padding, background, shadow, and rounded corners */
 .flashcard-wrapper {
     padding: 24px 32px;
-    background-color: #fff;
+    background: var(--gradient-background);
     display: inline-block;
-    box-shadow: 0 0 2rem 0 #282e3e1f;
     border-radius: 1rem;
     cursor: pointer;
 }
@@ -74,7 +106,7 @@ main {
 #flashcard {
     width: 960px;
     height: 490px;
-    background-color: #fff;
+    color: var(--white-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,8 +131,8 @@ main {
     font-size: 16px;
     cursor: pointer;
     border: none;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--btn-color);
+    color: var(--white-color);
     border-radius: 50%;
     /* Rounded button shape */
     width: 48px;
@@ -113,13 +145,13 @@ main {
 
 /* Disabled buttons are styled with a grey background and disabled cursor */
 #controls button:disabled {
-    background-color: #ccc;
+    background-color: var(--btn-disabled-color);
     cursor: not-allowed;
 }
 
 /* Enabled buttons change background color on hover */
 #controls button:hover:enabled {
-    background-color: #0056b3;
+    background-color: var(--btn-hover-color);
 }
 
 /* Style icons inside the buttons with font-size of 20px */
@@ -148,29 +180,21 @@ main {
 #answer-input {
     padding: 16px;
     font-size: 33px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 80%;
+    border: 1px solid var(--btn-disabled-color);
+    border-radius: 12px;
     max-width: 600px;
     margin-bottom: -300px;
     position: absolute;
+    outline: none;
+    text-align: center;
 }
-
-/* Uncommented result styling with margin, font size, and gap between elements */
-/* #result {
-    margin-top: -400px;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-} */
 
 /* Progress Bar Styles */
 /* Style the progress bar container to be fixed at the top of the screen */
 #progress-container {
     width: 100%;
     height: 2px;
-    background-color: #fff;
+    background-color: var(--white-color);
     position: fixed;
     top: 64px;
     left: 0;
@@ -180,7 +204,7 @@ main {
 /* Style the progress bar itself with a red color and set initial width to 0% */
 #progress-bar {
     height: 100%;
-    background-color: #FF6666;
+    background-color: var(--primary-color);
     width: 0%;
 }
 
@@ -208,7 +232,7 @@ main {
 
 /* Wrapper for the content inside the vocabulary input section */
 #vocab-input-wrapper {
-    background-color: #fff;
+    background-color: var(--white-color);
     padding: 50px 32px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -222,7 +246,7 @@ main {
 /* Style for the vocabulary input field: set dimensions, font size, line height, and margin */
 #vocab-input {
     width: 960px;
-    height: 230px;
+    height: 325px;
     padding: 16px;
     font-size: 22px;
     line-height: 30px;
@@ -235,8 +259,8 @@ main {
     font-size: 18px;
     cursor: pointer;
     border: none;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--btn-color);
+    color: var(--white-color);
     border-radius: 10px;
     transition: background-color 0.3s;
     margin-top: 11px;
@@ -246,13 +270,13 @@ main {
 
 /* Change background color of 'Add Vocabulary' button on hover */
 #add-vocab:hover {
-    background-color: #0056b3;
+    background-color: var(--btn-hover-color);
 }
 
 /* Button to show the vocabulary input section with padding, border, and hover effect */
 #add-vocab-show {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--btn-color);
+    color: var(--white-color);
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
@@ -268,7 +292,7 @@ main {
 
 /* Change background color of 'Add Vocabulary' button on hover */
 #add-vocab-show:hover {
-    background-color: #0056b3;
+    background-color: var(--btn-hover-color);
 }
 
 /* Close button (X) styling: position, size, and color */
@@ -276,7 +300,7 @@ main {
     background-color: transparent;
     border: none;
     font-size: 24px;
-    color: #333;
+    color: var(--black-color);
     position: absolute;
     top: 12.5px;
     right: 17px;
@@ -285,7 +309,7 @@ main {
 
 /* Change color of close button to red on hover */
 .close-btn:hover {
-    color: red;
+    color: var(--close-btn-color);
 }
 
 /* Card List Section */
@@ -304,7 +328,7 @@ main {
     margin-bottom: 16px;
     font-size: 24px;
     text-align: center;
-    color: #ff6666;
+    color: var(--primary-color);
 }
 
 /* Remove default list styling and padding for the card list */
@@ -318,18 +342,17 @@ main {
     display: flex;
     justify-content: space-between;
     padding: 20px 17px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    color: var(--white-color);
+    background: var(--gradient-background);
     margin: 16px 24px;
-    box-shadow: 0 0 1rem 0 #282e3e1f;
     font-size: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 /* Style buttons inside the card list with font size, background color, and padding */
 #card-list li button {
     font-size: 22px;
-    background-color: #fff;
+    background-color: var(--transparent-color);
     border: none;
     padding: 4px 8px;
     cursor: pointer;
@@ -337,14 +360,14 @@ main {
 
 /* Change button color on hover to red */
 #card-list li button:hover {
-    color: red;
+    color: var(--close-btn-color);
 }
 
 /* Style buttons with specific IDs ('reverse', 'shuffle', 'check') with grey background */
 button#reverse,
 button#shuffle,
 button#check {
-    background-color: #ccc;
+    background-color: var(--btn-disabled-color);
 }
 
 /* Style for the result text with font size and centered alignment */
@@ -357,10 +380,10 @@ button#check {
 
 /* Style for correct result with green color */
 .correct {
-    color: #00ba00;
+    color: var(--black-color);
 }
 
 /* Style for wrong result with red color */
 .wrong {
-    color: #ff5a54;
+    color: var(--white-color);
 }
