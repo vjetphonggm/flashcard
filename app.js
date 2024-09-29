@@ -451,17 +451,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Check if service workers are supported, then register the service worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-        navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-        }, function (err) {
-            console.log('Service Worker registration failed:', err);
-        });
-    });
-}
-
 // Prevent double tap event
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length > 1) {
@@ -478,3 +467,34 @@ document.addEventListener('dblclick', function (event) {
 window.addEventListener('beforeunload', function () {
     window.scrollTo(0, 0);
 });
+
+
+
+// Detect if the app is running in PWA mode
+function isPWA() {
+    return window.matchMedia('(display-mode: standalone)').matches;
+}
+
+// Function to handle focus and ensure keyboard appears in PWA mode
+function enableKeyboardForInputs() {
+    if (isPWA()) {
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            // Remove any readonly or disabled properties
+            input.removeAttribute('readonly');
+            input.removeAttribute('disabled');
+
+            // Force focus to ensure keyboard appears
+            input.addEventListener('focus', () => {
+                setTimeout(() => {
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 200);
+            });
+        });
+
+        console.log('PWA mode detected: Input handling adjusted for PWA.');
+    }
+}
+
+// Call the function after DOM is fully loaded
+document.addEventListener("DOMContentLoaded", enableKeyboardForInputs);
