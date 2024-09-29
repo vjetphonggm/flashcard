@@ -136,6 +136,26 @@ reverseBtn.addEventListener('click', () => {
 // Hide the card-list-section initially
 cardListSection.style.display = 'none';
 
+// Variables to track the state of scroll locking
+let isScrollLocked = true; // Lock scrolling initially
+
+// Function to check and lock/unlock scrolling based on card availability
+function toggleScrollLock() {
+    if (vocabCards.length === 0) {
+        isScrollLocked = true; // Lock scrolling when no cards
+        window.scrollTo(0, 0); // Ensure the page stays at the top
+    } else {
+        isScrollLocked = false; // Unlock scrolling when there are cards
+    }
+}
+
+// Listen for scroll events and prevent scrolling if locked
+window.addEventListener('scroll', function () {
+    if (isScrollLocked) {
+        window.scrollTo(0, 0); // Force the page to stay at the top
+    }
+});
+
 // Add new vocabulary and update card list
 addVocabBtn.addEventListener('click', () => {
     const vocabLines = vocabInput.value.trim().split('\n');
@@ -181,7 +201,10 @@ addVocabBtn.addEventListener('click', () => {
             // Hide card-list-section if no vocabulary left
             if (vocabCards.length === 0) {
                 cardListSection.style.display = 'none';
+                location.reload();  // Reload the page (F5) when all cards are deleted
             }
+
+            toggleScrollLock(); // Check if scroll should be locked
         });
         cardItem.appendChild(deleteBtn);
         cardList.appendChild(cardItem);
@@ -197,6 +220,8 @@ addVocabBtn.addEventListener('click', () => {
     updateFlashcard(); // Update flashcard display
 
     window.scrollTo(0, 0); // Scroll to top after adding vocabulary
+
+    toggleScrollLock(); // Unlock scrolling if new cards are added
 });
 
 // Show or hide the answer check overlay when the Check button is clicked
@@ -436,3 +461,20 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
+
+// Prevent double tap event
+document.addEventListener('touchstart', function (event) {
+    if (event.touches.length > 1) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('dblclick', function (event) {
+    event.preventDefault();
+});
+
+
+// Scroll to top when page is refreshed or loaded
+window.addEventListener('beforeunload', function () {
+    window.scrollTo(0, 0);
+});

@@ -46,9 +46,9 @@
 
     /* Wrapper for vocab input with padding and background for mobile */
     #vocab-input-wrapper {
-        margin-bottom: 4px;
-        width: 342px;
-        height: 680px;
+        margin-bottom: 6px;
+        width: 346px;
+        height: 682px;
         background-color: #fff;
         padding: 50px 26px;
     }
