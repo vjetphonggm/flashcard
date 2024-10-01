@@ -115,4 +115,9 @@
     button#check:hover:enabled {
         background-color: var(--btn-disabled-color);
     }
+
+    /* Styles for vocabulary words */
+    .vocab-word {
+        width: 100px;
+    }
 }

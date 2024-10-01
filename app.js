@@ -186,7 +186,8 @@ addVocabBtn.addEventListener('click', () => {
 
         // Create list item for the card
         const cardItem = document.createElement('li');
-        cardItem.textContent = word;
+        const vocabDefinitionParts = [type, phonetic, definition, example].filter(Boolean).join(' ');
+        cardItem.innerHTML = `<div class="vocab-word">${word}</div><div class="vocab-definition">${vocabDefinitionParts}</div>`;
 
         const deleteBtn = document.createElement('button');
         deleteBtn.innerHTML = '<i class="fas fa-times"></i>';
@@ -272,7 +273,15 @@ answerInput.addEventListener('keypress', (event) => {
             if (userAnswer === correctAnswer) {
                 resultDisplay.innerHTML = `<span class="result correct"><i class="fas fa-check-circle"></i> ${vocabCards[currentCardIndex].word}</span>`;
             } else {
-                resultDisplay.innerHTML = `<span class="result wrong"><i class="fas fa-times-circle"></i> ${vocabCards[currentCardIndex].word}</span>`;
+                let displayedAnswer = '';
+                for (let i = 0; i < correctAnswer.length; i++) {
+                    if (userAnswer[i] === correctAnswer[i]) {
+                        displayedAnswer += `<span>${correctAnswer[i]}</span>`; 
+                    } else {
+                        displayedAnswer += `<span style="background-color: #ff4d4d;">${correctAnswer[i]}</span>`; 
+                    }
+                }
+                resultDisplay.innerHTML = `<span class="result wrong"><i class="fas fa-times-circle"></i> ${displayedAnswer}</span>`;
             }
 
             isShowingResult = true; // Set result display state
