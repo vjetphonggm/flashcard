@@ -100,6 +100,7 @@ main {
     display: inline-block;
     border-radius: 1rem;
     cursor: pointer;
+    user-select: none;
 }
 
 /* Style the individual flashcard with a fixed size, center content, and ensure it is on top */
