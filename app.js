@@ -96,6 +96,7 @@ prevBtn.addEventListener('click', () => {
         currentCardIndex--;
         isFlipped = false;
         updateFlashcard();
+        changeBackgroundColor();
     }
 });
 
@@ -105,6 +106,7 @@ nextBtn.addEventListener('click', () => {
         currentCardIndex++;
         isFlipped = false;
         updateFlashcard();
+        changeBackgroundColor();
     }
 });
 
@@ -148,13 +150,6 @@ function toggleScrollLock() {
         isScrollLocked = false; // Unlock scrolling when there are cards
     }
 }
-
-// Listen for scroll events and prevent scrolling if locked
-window.addEventListener('scroll', function () {
-    if (isScrollLocked) {
-        window.scrollTo(0, 0); // Force the page to stay at the top
-    }
-});
 
 // Add new vocabulary and update card list
 addVocabBtn.addEventListener('click', () => {
@@ -276,9 +271,9 @@ answerInput.addEventListener('keypress', (event) => {
                 let displayedAnswer = '';
                 for (let i = 0; i < correctAnswer.length; i++) {
                     if (userAnswer[i] === correctAnswer[i]) {
-                        displayedAnswer += `<span>${correctAnswer[i]}</span>`; 
+                        displayedAnswer += `<span>${correctAnswer[i]}</span>`;
                     } else {
-                        displayedAnswer += `<span style="background-color: #ff4d4d;">${correctAnswer[i]}</span>`; 
+                        displayedAnswer += `<span style="background-color: #ff4d4d;">${correctAnswer[i]}</span>`;
                     }
                 }
                 resultDisplay.innerHTML = `<span class="result wrong"><i class="fas fa-times-circle"></i> ${displayedAnswer}</span>`;
@@ -460,6 +455,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Check if service workers are supported, then register the service worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }, function (err) {
+            console.log('Service Worker registration failed:', err);
+        });
+    });
+}
+
 // Prevent double tap event
 document.addEventListener('touchstart', function (event) {
     if (event.touches.length > 1) {
@@ -470,7 +476,6 @@ document.addEventListener('touchstart', function (event) {
 document.addEventListener('dblclick', function (event) {
     event.preventDefault();
 });
-
 
 // Scroll to top when page is refreshed or loaded
 window.addEventListener('beforeunload', function () {
