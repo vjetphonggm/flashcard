@@ -96,7 +96,6 @@ prevBtn.addEventListener('click', () => {
         currentCardIndex--;
         isFlipped = false;
         updateFlashcard();
-        changeBackgroundColor();
     }
 });
 
@@ -106,7 +105,6 @@ nextBtn.addEventListener('click', () => {
         currentCardIndex++;
         isFlipped = false;
         updateFlashcard();
-        changeBackgroundColor();
     }
 });
 
