@@ -571,16 +571,28 @@ function toggleCardControlsOnScroll() {
     const sectionHeight = cardListSection.offsetHeight;
     const triggerPosition = sectionTop + sectionHeight * 0.3; // 30% of the section height
 
+    // Check current visibility
+    const isVisible = cardControls.classList.contains('visible');
+
     // Show or hide the #card-controls based on scroll position
-    if (scrollPosition >= triggerPosition) {
-        cardControls.style.display = 'block'; // Show controls
-    } else {
-        cardControls.style.display = 'none'; // Hide controls
+    if (scrollPosition >= triggerPosition && !isVisible) {
+        cardControls.classList.add('visible');
+    } else if (scrollPosition < triggerPosition && isVisible) {
+        cardControls.classList.remove('visible');
     }
 }
 
-// Attach the scroll event listener
-window.addEventListener('scroll', toggleCardControlsOnScroll);
+// Debounce scroll event handler
+let debounceTimeout;
+function debounce(func, delay) {
+    return function() {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(func, delay);
+    };
+}
 
-// Initially hide the #card-controls
-document.getElementById('card-controls').style.display = 'none';
+// Attach the scroll event listener with debounce
+window.addEventListener('scroll', debounce(toggleCardControlsOnScroll, 100));
+
+// Initially hide the #card-controls with CSS visibility
+document.getElementById('card-controls').classList.remove('visible');
