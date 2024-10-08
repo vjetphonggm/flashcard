@@ -4,7 +4,7 @@
     /* Flashcard container width and height for mobile */
     #flashcard {
         width: 278px;
-        height: 440px;
+        height: 505px;
     }
 
     /* Full width for card list section on mobile */
@@ -46,9 +46,9 @@
 
     /* Wrapper for vocab input with padding and background for mobile */
     #vocab-input-wrapper {
-        margin-bottom: 6px;
+        margin-bottom: -45px;
         width: 346px;
-        height: 682px;
+        height: 745px;
         background-color: #fff;
         padding: 50px 26px;
     }
@@ -61,7 +61,7 @@
 
     /* Full width and fixed height for the answer overlay on mobile */
     #answer-overlay {
-        height: 488px;
+        height: 550px;
     }
 
     /* Center controls with flexbox on mobile */
@@ -119,5 +119,10 @@
     /* Styles for vocabulary words */
     .vocab-word {
         width: 100px;
+    }
+
+    /* Positions the card-controls section 20 pixels from the bottom of its container */
+    #card-controls {
+        bottom: 20px;
     }
 }

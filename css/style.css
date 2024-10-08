@@ -398,6 +398,7 @@ button#check {
     text-align: center;
     font-weight: bold;
     user-select: text;
+    cursor: pointer;
 }
 
 /* Styles for vocabulary definitions */
@@ -405,4 +406,30 @@ button#check {
     flex: 1;
     width: calc(100% - 250px);
     padding-left: 20px;
+    user-select: text;
+    cursor: pointer;
+}
+
+/* Center-aligns the content in the card controls section */
+#card-controls {
+    position: sticky;
+    bottom: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styles for the buttons within the card controls */
+#card-controls button {
+    padding: 16px 20px;
+    border: none;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: var(--btn-color);
+    color: white;
+    cursor: pointer;
+}
+
+/* Styles for icons within buttons */
+#card-controls .fas {
+    margin-right: 5px;
 }

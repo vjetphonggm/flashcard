@@ -18,6 +18,8 @@ const vocabInputSection = document.getElementById('vocab-input-section')
 const inputSection = document.getElementById('input-section')
 const closeVocabInputBtn = document.getElementById('close-vocab-input')
 const cardListSection = document.getElementById('card-list-section')
+const toggleDefinitionBtn = document.getElementById('toggle-definition');
+const switchIconBtn = document.getElementById('switch-icon');
 
 // Variables to track the state of the flashcards and interactions
 let vocabCards = []
@@ -200,6 +202,15 @@ addVocabBtn.addEventListener('click', () => {
 
             toggleScrollLock(); // Check if scroll should be locked
         });
+
+        // Add copy functionality for the word
+        const vocabWordElement = cardItem.querySelector('.vocab-word');
+        vocabWordElement.addEventListener('click', () => {
+            navigator.clipboard.writeText(word).catch(err => {
+                console.error('Failed to copy text:', err);
+            });
+        });
+
         cardItem.appendChild(deleteBtn);
         cardList.appendChild(cardItem);
         hasNewVocab = true;
@@ -479,3 +490,72 @@ document.addEventListener('dblclick', function (event) {
 window.addEventListener('beforeunload', function () {
     window.scrollTo(0, 0);
 });
+
+// State variables to track the toggle status
+let isDefinitionVisible = true;
+let isVocabularyVisible = true;
+let mode = 'definition'; // Can be 'definition' or 'vocabulary'
+
+// Function to toggle visibility of definitions and vocabulary
+function toggleVisibility() {
+    if (mode === 'definition') {
+        isDefinitionVisible = !isDefinitionVisible;
+        document.querySelectorAll(".vocab-definition").forEach(def => {
+            def.style.opacity = isDefinitionVisible ? "1" : "0";
+        });
+        toggleDefinitionBtn.textContent = isDefinitionVisible ? 'Hide Definition' : 'Show Definition';
+    } else if (mode === 'vocabulary') {
+        isVocabularyVisible = !isVocabularyVisible;
+        document.querySelectorAll(".vocab-word").forEach(word => {
+            word.style.opacity = isVocabularyVisible ? "1" : "0";
+        });
+        toggleDefinitionBtn.textContent = isVocabularyVisible ? 'Hide Vocabulary' : 'Show Vocabulary';
+    }
+}
+
+// Event listener for toggle-definition button
+toggleDefinitionBtn.addEventListener('click', toggleVisibility);
+
+// Event listener for switch-icon button
+switchIconBtn.addEventListener('click', function() {
+    if (mode === 'definition') {
+        mode = 'vocabulary';
+        isDefinitionVisible = true;  // Reset visibility
+        document.querySelectorAll(".vocab-definition").forEach(def => {
+            def.style.opacity = "1"; // Show definitions when switching modes
+        });
+        toggleDefinitionBtn.textContent = 'Show Vocabulary';
+    } else {
+        mode = 'definition';
+        isVocabularyVisible = true;  // Reset visibility
+        document.querySelectorAll(".vocab-word").forEach(word => {
+            word.style.opacity = "1"; // Show vocabulary when switching modes
+        });
+        toggleDefinitionBtn.textContent = 'Show Definition';
+    }
+});
+
+// Function to toggle visibility of individual hidden words or definitions
+function showOnClick() {
+    // Add click event listener to all vocab-word elements
+    document.querySelectorAll(".vocab-word").forEach(word => {
+        word.addEventListener('click', function() {
+            if (word.style.opacity === "0") {
+                word.style.opacity = "1"; // Make word visible
+            }
+        });
+    });
+
+    // Add click event listener to all vocab-definition elements
+    document.querySelectorAll(".vocab-definition").forEach(def => {
+        def.addEventListener('click', function() {
+            if (def.style.opacity === "0") {
+                def.style.opacity = "1"; // Make definition visible
+            }
+        });
+    });
+}
+
+// Call the showOnClick function after the DOM has loaded or after toggling visibility
+document.addEventListener('DOMContentLoaded', showOnClick);
+toggleDefinitionBtn.addEventListener('click', showOnClick);  // Reapply event listeners when toggling definitions
