@@ -559,3 +559,28 @@ function showOnClick() {
 // Call the showOnClick function after the DOM has loaded or after toggling visibility
 document.addEventListener('DOMContentLoaded', showOnClick);
 toggleDefinitionBtn.addEventListener('click', showOnClick);  // Reapply event listeners when toggling definitions
+
+// Function to toggle visibility of #card-controls when scrolling
+function toggleCardControlsOnScroll() {
+    const cardListSection = document.getElementById('card-list-section');
+    const cardControls = document.getElementById('card-controls');
+    
+    // Calculate when 30% of the card-list-section is scrolled
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const sectionTop = cardListSection.offsetTop;
+    const sectionHeight = cardListSection.offsetHeight;
+    const triggerPosition = sectionTop + sectionHeight * 0.3; // 30% of the section height
+
+    // Show or hide the #card-controls based on scroll position
+    if (scrollPosition >= triggerPosition) {
+        cardControls.style.display = 'block'; // Show controls
+    } else {
+        cardControls.style.display = 'none'; // Hide controls
+    }
+}
+
+// Attach the scroll event listener
+window.addEventListener('scroll', toggleCardControlsOnScroll);
+
+// Initially hide the #card-controls
+document.getElementById('card-controls').style.display = 'none';
