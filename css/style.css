@@ -424,7 +424,7 @@ button#check {
     border: none;
     font-size: 20px;
     border-radius: 10px;
-    background-color: var(--btn-color);
+    background: linear-gradient(180deg, #EED17D, #F64D33);
     color: white;
     cursor: pointer;
 }
@@ -432,4 +432,9 @@ button#check {
 /* Styles for icons within buttons */
 #card-controls .fas {
     margin-right: 5px;
+}
+
+/* Define a toggle button's width to 200px */
+#toggle-definition {
+    width: 200px;
 }
