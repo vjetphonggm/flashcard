@@ -416,9 +416,9 @@ button#check {
     bottom: 10px;
     text-align: center;
     margin-bottom: 20px;
-    opacity: 0;
+    /* opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease; */
 }
 
 /* Styles for the buttons within the card controls */
@@ -427,7 +427,8 @@ button#check {
     border: none;
     font-size: 20px;
     border-radius: 10px;
-    background: linear-gradient(180deg, #EED17D, #F64D33);
+    background: linear-gradient(90deg, #FF8F26, #FF7620);
+    font-weight: bold;
     color: white;
     cursor: pointer;
 }
@@ -437,13 +438,7 @@ button#check {
     margin-right: 5px;
 }
 
-/* Ensures that the card controls are fully visible by setting opacity to 1 and visibility to 'visible' */
-#card-controls.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
 /* Define a toggle button's width to 200px */
 #toggle-definition {
-    width: 200px;
+    width: 206px;
 }
